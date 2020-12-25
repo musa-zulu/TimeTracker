@@ -6,7 +6,7 @@
   <h3 align="center">Onion Architecture</h3>
 
   <p align="center">
-    TimeTracer API solution is built on Onion Architecture with all essential feature using .NET Core!
+    TimeTracker API solution is built on Onion Architecture with all essential feature using .NET Core!
   
   <br/>
       Trello board for user stories can be found here: https://trello.com/b/VUfTE5Yy/timetracker
