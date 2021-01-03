@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using TimeTracker.Domain.Entities;
 
 namespace TimeTracker.Persistence
 {
@@ -27,6 +28,10 @@ namespace TimeTracker.Persistence
                 .UseSqlServer("DataSource=app.db");
             }
         }
+
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<TimeSlot> TimeSlots { get; set; }
+        public DbSet<TimeSheet> TimeSheets { get; set; }
 
         public async Task<int> SaveChangesAsync()
         {
