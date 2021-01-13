@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using TimeTracker.Domain.Settings;
+using TimeTracker.Infrastructure.Mapping;
 using TimeTracker.Persistence;
 using TimeTracker.Service.Contract;
 using TimeTracker.Service.Implementation;
@@ -31,7 +32,7 @@ namespace TimeTracker.Infrastructure.Extension
         {
             var mappingConfig = new MapperConfiguration(mc =>
             {
-                //mc.AddProfile(new CustomerProfile());
+                mc.AddProfile(new ProjectProfile());
             });
             IMapper mapper = mappingConfig.CreateMapper();
             serviceCollection.AddSingleton(mapper);
@@ -47,6 +48,7 @@ namespace TimeTracker.Infrastructure.Extension
         {
             serviceCollection.AddTransient<IDateTimeService, DateTimeService>();
             serviceCollection.AddTransient<IAccountService, AccountService>();
+            serviceCollection.AddTransient<IProjectService, ProjectService>();
         }
         public static void AddSwaggerOpenAPI(this IServiceCollection serviceCollection)
         {

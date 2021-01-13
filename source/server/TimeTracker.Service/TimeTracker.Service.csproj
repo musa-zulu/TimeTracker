@@ -22,9 +22,4 @@
     <ProjectReference Include="..\TimeTracker.Persistence\TimeTracker.Persistence.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\Features\Commands\" />
-    <Folder Include="Features\Features\Queries\" />
-  </ItemGroup>
-
 </Project>

@@ -64,11 +64,14 @@ namespace TimeTracker.Service.Implementation
         }
 
         public async Task<Response<List<Project>>> GetProjectsAsync()
-        {            
+        {
             try
             {
-                var projects = await _applicationDbContext.Projects.Include(c=>c.TimeSlots).ToListAsync();
-               
+                var projects = await _applicationDbContext
+                    .Projects
+                    .Include(c => c.TimeSlots)
+                    .ToListAsync();                    
+
                 return new Response<List<Project>>
                 {
                     Data = projects,
