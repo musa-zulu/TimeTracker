@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
@@ -68,7 +69,7 @@ namespace TimeTracker
             services.AddFeatureManagement();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory log)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory log, IServiceProvider service)
         {
             if (env.IsDevelopment())
             {
@@ -106,14 +107,22 @@ namespace TimeTracker
               {
                   setup.ApiPath = "/healthcheck";
                   setup.UIPath = "/healthcheck-ui";
-                 // setup.AddCustomStylesheet("Customization/custom.css");
+                  // setup.AddCustomStylesheet("Customization/custom.css");
               });
 
+            RunMigrations(service);
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+        }
+        
+        private void RunMigrations(IServiceProvider service)
+        {
+            // This returns the context.
+            using var context = service.GetService<ApplicationDbContext>();
+            context.Database.Migrate();
         }
     }
 }
