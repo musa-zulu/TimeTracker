@@ -36,5 +36,11 @@ namespace TimeTracker.Controllers
         {
             return Ok(await Mediator.Send(new GetAllProjectsQuery()));
         }
+
+        [HttpGet("{projectId}")]
+        public async Task<IActionResult> GetById(Guid projectId)
+        {
+            return Ok(await Mediator.Send(new GetProjectByIdQuery { ProjectId = projectId }));
+        }
     }
 }
