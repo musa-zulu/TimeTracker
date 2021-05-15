@@ -1,12 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TimeTracker.Domain.Dtos
 {
-    public class ProjectDto
+    public class ProjectDto : BaseEntity
     {
         public Guid ProjectId { get; set; }
         public string Description { get; set; }

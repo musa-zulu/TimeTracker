@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text.Json.Serialization;
 
 namespace TimeTracker.Domain.Entities
 {
@@ -12,9 +11,7 @@ namespace TimeTracker.Domain.Entities
         public int WeekNumber { get; set; }
         public DateTime Date { get; set; }
         public string DayDescription { get; set; }
-        public double HoursCaptured { get; set; }  
-        
-        [JsonIgnore]
-        public Project Project { get; set; }
+        public double HoursCaptured { get; set; } 
+        public Project Project { get; set; }        
     }
 }  

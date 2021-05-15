@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace TimeTracker.Domain.Entities
 {
-    public class Project
+    public class Project : BaseEntity
     {
         public Guid ProjectId { get; set; }
         public string Description { get; set; }
