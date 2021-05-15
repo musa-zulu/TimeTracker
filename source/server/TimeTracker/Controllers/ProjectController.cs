@@ -49,5 +49,15 @@ namespace TimeTracker.Controllers
             return Ok(await Mediator.Send(new DeleteProjectByIdCommand { ProjectId = projectId }));
         }
 
+        [HttpPut("{projectId}")]
+        public async Task<IActionResult> Update(Guid projectId, UpdateProjectCommand command)
+        {
+            if (projectId != command.ProjectDto.ProjectId)
+            {
+                return BadRequest();
+            }
+            return Ok(await Mediator.Send(command));
+        }
+
     }
 }

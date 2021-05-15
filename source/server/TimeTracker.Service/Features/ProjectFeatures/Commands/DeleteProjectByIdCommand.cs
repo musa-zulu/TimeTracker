@@ -1,9 +1,5 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using TimeTracker.Service.Contract;
@@ -15,11 +11,9 @@ namespace TimeTracker.Service.Features.ProjectFeatures.Commands
         public Guid ProjectId { get; set; }
         public class DeleteProjectByIdHandler : IRequestHandler<DeleteProjectByIdCommand, bool>
         {
-            private readonly IProjectService _projectService;
-            private readonly IMapper _mapper;
-            public DeleteProjectByIdHandler(IProjectService projectService, IMapper mapper)
-            {
-                _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            private readonly IProjectService _projectService;            
+            public DeleteProjectByIdHandler(IProjectService projectService)
+            {                
                 _projectService = projectService ?? throw new ArgumentNullException(nameof(projectService));
             }
             public async Task<bool> Handle(DeleteProjectByIdCommand request, CancellationToken cancellationToken)
