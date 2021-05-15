@@ -12,6 +12,6 @@ namespace TimeTracker.Domain.Dtos
         public DateTime Date { get; set; }
         public string DayDescription { get; set; }
         public double HoursCaptured { get; set; }        
-        public ProjectDto Project { get; set; }
+        public virtual ProjectDto Project { get; set; }
     }
 }

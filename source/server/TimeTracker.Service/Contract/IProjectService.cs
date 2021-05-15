@@ -12,5 +12,6 @@ namespace TimeTracker.Service.Contract
         Task<Response<bool>> UpdateProjectAsync(Project projectToUpdate);
         Task<Response<List<Project>>> GetProjectsAsync();
         Task<Response<Project>> GetProjectById(Guid projectId);
+        Task<Response<bool>> DeleteProjectById(Guid projectId);
     }
 }

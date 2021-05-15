@@ -38,6 +38,39 @@ namespace TimeTracker.Service.Implementation
             }
         }
 
+        public async Task<Response<bool>> DeleteProjectById(Guid projectId)
+        {
+            try
+            {
+                var project = await GetProjectById(projectId);
+                if (project == null) throw new ArgumentNullException(nameof(project));
+                DeleteProjectDetailsFrom(project.Data);
+                _applicationDbContext.Projects.Remove(project.Data);
+                return new Response<bool>
+                {
+                    Succeeded = await _applicationDbContext.SaveChangesAsync() > 0
+                };
+            }
+            catch (Exception e)
+            {
+                return new Response<bool>
+                {
+                    Succeeded = false,
+                    Message = e.Message
+                };
+            }
+        }
+
+        private void DeleteProjectDetailsFrom(Project project)
+        {
+            var timeSlots = project?.TimeSlots;
+            if (timeSlots != null && timeSlots.Count > 0)
+            {
+                foreach (var timeSlot in timeSlots)
+                    _applicationDbContext.TimeSlots.Remove(timeSlot);
+            }
+        }
+
         public async Task<Response<Project>> GetProjectById(Guid projectId)
         {
             try
@@ -70,7 +103,7 @@ namespace TimeTracker.Service.Implementation
                 var projects = await _applicationDbContext
                     .Projects
                     .Include(c => c.TimeSlots)
-                    .ToListAsync();                    
+                    .ToListAsync();
 
                 return new Response<List<Project>>
                 {

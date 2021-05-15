@@ -12,6 +12,6 @@ namespace TimeTracker.Domain.Entities
         public DateTime Date { get; set; }
         public string DayDescription { get; set; }
         public double HoursCaptured { get; set; } 
-        public Project Project { get; set; }        
+        public virtual Project Project { get; set; }        
     }
 }  

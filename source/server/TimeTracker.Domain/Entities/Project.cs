@@ -11,6 +11,6 @@ namespace TimeTracker.Domain.Entities
         public double TotalHours { get; set; }
         //sum of all hours for a task for a given week
         public double TotalBillableHours { get; set; }
-        public virtual IEnumerable<TimeSlot> TimeSlots { get; set; }
+        public virtual List<TimeSlot> TimeSlots { get; set; }
     }
 }  

@@ -7,16 +7,16 @@ using TimeTracker.Service.Contract;
 
 namespace TimeTracker.Service.Features.ProjectFeatures.Queries
 {
-    public class GetAllProjectsQuery : IRequest<IEnumerable<Project>>
+    public class GetAllProjectsQuery : IRequest<List<Project>>
     {
-        public class GetAllProjectsQueryHandler : IRequestHandler<GetAllProjectsQuery, IEnumerable<Project>>
+        public class GetAllProjectsQueryHandler : IRequestHandler<GetAllProjectsQuery, List<Project>>
         {
             private readonly IProjectService _projectService;
             public GetAllProjectsQueryHandler(IProjectService projectService)
             {
                 _projectService = projectService;
             }
-            public async Task<IEnumerable<Project>> Handle(GetAllProjectsQuery request, CancellationToken cancellationToken)
+            public async Task<List<Project>> Handle(GetAllProjectsQuery request, CancellationToken cancellationToken)
             {
                 var projects = await _projectService.GetProjectsAsync();
                 if (projects == null)
