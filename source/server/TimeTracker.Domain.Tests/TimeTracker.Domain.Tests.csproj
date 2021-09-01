@@ -18,4 +18,8 @@
     <ProjectReference Include="..\TimeTracker.Domain\TimeTracker.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Dtos\" />
+  </ItemGroup>
+
 </Project>
