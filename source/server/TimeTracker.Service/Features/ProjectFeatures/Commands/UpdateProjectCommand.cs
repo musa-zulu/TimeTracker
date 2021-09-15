@@ -28,7 +28,8 @@ namespace TimeTracker.Service.Features.ProjectFeatures.Commands
                 var projectUpdated = false;
                 if (project != null)
                 {
-                    projectUpdated = _projectService.UpdateProjectAsync(project).Result.Succeeded;
+                    var results = await _projectService.UpdateProjectAsync(project);
+                    projectUpdated = results.Succeeded;
                 }
                 return projectUpdated;
             }

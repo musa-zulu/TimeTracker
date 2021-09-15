@@ -41,8 +41,6 @@ namespace TimeTracker.Infrastructure.Extension
         public static void AddScopedServices(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
-
-
         }
         public static void AddTransientServices(this IServiceCollection serviceCollection)
         {
@@ -64,7 +62,7 @@ namespace TimeTracker.Infrastructure.Extension
                         Contact = new OpenApiContact()
                         {
                             Email = "zuluchs@gmail.com",
-                            Name = "Musa Zulu"                            
+                            Name = "Musa Zulu"
                         },
                         License = new OpenApiLicense()
                         {

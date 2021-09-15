@@ -8,7 +8,6 @@ namespace TimeTracker.Persistence
     {
         DbSet<Project> Projects { get; set; }
         DbSet<TimeSlot> TimeSlots { get; set; }
-        DbSet<TimeSheet> TimeSheets { get; set; }
 
         Task<int> SaveChangesAsync();
     }

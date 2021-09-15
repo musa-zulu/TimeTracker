@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Threading.Tasks;
+using TimeTracker.Domain;
 using TimeTracker.Domain.Entities;
 
 namespace TimeTracker.Persistence
@@ -16,7 +18,7 @@ namespace TimeTracker.Persistence
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
         }
 
@@ -31,11 +33,26 @@ namespace TimeTracker.Persistence
 
         public DbSet<Project> Projects { get; set; }
         public DbSet<TimeSlot> TimeSlots { get; set; }
-        public DbSet<TimeSheet> TimeSheets { get; set; }
 
         public async Task<int> SaveChangesAsync()
         {
+            foreach (var entry in ChangeTracker.Entries())
+            {
+                if (entry.Entity is IBaseEntity)
+                {
+                    if (entry.State == EntityState.Added)
+                    {
+                        entry.Property("Created").CurrentValue = DateTime.Now;
+                    }
+                    else if (entry.State == EntityState.Modified)
+                    {
+                        entry.Property("DateUpdated").CurrentValue = DateTime.Now;
+                    }
+                }
+            }
             return await base.SaveChangesAsync();
         }
+
+
     }
 }

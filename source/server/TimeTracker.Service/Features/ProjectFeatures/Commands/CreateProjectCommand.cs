@@ -28,10 +28,11 @@ namespace TimeTracker.Service.Features.ProjectFeatures.Commands
                 var projectSaved = false;
                 if (project != null)
                 {
-                    projectSaved =  _projectService.AddProjectAsync(project).Result.Succeeded;
+                    var response = await _projectService.AddProjectAsync(project);
+                    projectSaved = response.Succeeded;
                 }
                 return projectSaved;
-            }           
+            }
         }
-    }    
+    }
 }
