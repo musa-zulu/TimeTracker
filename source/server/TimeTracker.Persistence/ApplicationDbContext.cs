@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
 using System.Threading.Tasks;
-using TimeTracker.Domain;
 using TimeTracker.Domain.Entities;
 
 namespace TimeTracker.Persistence
@@ -36,23 +34,8 @@ namespace TimeTracker.Persistence
 
         public async Task<int> SaveChangesAsync()
         {
-            foreach (var entry in ChangeTracker.Entries())
-            {
-                if (entry.Entity is IBaseEntity)
-                {
-                    if (entry.State == EntityState.Added)
-                    {
-                        entry.Property("Created").CurrentValue = DateTime.Now;
-                    }
-                    else if (entry.State == EntityState.Modified)
-                    {
-                        entry.Property("DateUpdated").CurrentValue = DateTime.Now;
-                    }
-                }
-            }
             return await base.SaveChangesAsync();
         }
-
 
     }
 }

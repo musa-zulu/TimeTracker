@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace TimeTracker.Domain.Dtos
 {
-    public class ProjectDto : BaseEntity
+    public class ProjectDto
     {
         public Guid ProjectId { get; set; }
         public string Description { get; set; }

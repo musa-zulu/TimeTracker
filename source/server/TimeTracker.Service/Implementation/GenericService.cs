@@ -169,5 +169,26 @@ namespace TimeTracker.Service.Implementation
                 };
             }
         }
+
+        public async Task<Response<bool>> Update(T entity)
+        {
+            try
+            {
+                _applicationDbContext.Set<T>().Update(entity);
+                return new Response<bool>
+                {
+                    Message = "Objects were deleted successfully!",
+                    Succeeded = await _applicationDbContext.SaveChangesAsync() > 0
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Response<bool>
+                {
+                    Succeeded = false,
+                    Message = "Something went wrong due to the following reason \n" + ex.Message
+                };
+            }
+        }
     }
 }

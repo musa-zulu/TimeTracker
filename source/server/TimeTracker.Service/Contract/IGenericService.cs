@@ -15,5 +15,6 @@ namespace TimeTracker.Service.Contract
         Task<Response<bool>> AddRange(IEnumerable<T> entities);
         Task<Response<bool>> Remove(T entity);
         Task<Response<bool>> RemoveRange(IEnumerable<T> entities);
+        Task<Response<bool>> Update(T entity);
     }
 }

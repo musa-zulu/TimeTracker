@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace TimeTracker.Domain.Entities
 {
-    public class Project : BaseEntity
+    public class Project
     {
         public Guid ProjectId { get; set; }
         public string Description { get; set; }
@@ -13,4 +13,4 @@ namespace TimeTracker.Domain.Entities
         public double TotalBillableHours { get; set; }
         public virtual List<TimeSlot> TimeSlots { get; set; }
     }
-}  
+}
