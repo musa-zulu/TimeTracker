@@ -22,7 +22,8 @@ source/server/.vs/TimeTracker/v16/.suo
 source/server/TimeTracker.Persistence/ApplicationDbContext.dgml
 
 source/server/.vs/TimeTracker/DesignTimeBuild/.dtbcache.v2
-
-source/server/.vs/TimeTracker/v16/TestStore/0/testlog.manifest
-
 *.testlog
+*.manifest
+
+source/server/TimeTracker.Domain.Tests/Auth/.editorconfig
+
