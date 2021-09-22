@@ -31,7 +31,7 @@ namespace TimeTracker.Controllers
         }
 
         [HttpGet]
-        [Route("")]
+        [Route("GetAll")]
         public async Task<IActionResult> GetAll()
         {
             return Ok(await Mediator.Send(new GetAllProjectsQuery()));
