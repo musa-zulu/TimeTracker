@@ -1,23 +1,25 @@
 ﻿using NUnit.Framework;
 using PeanutButter.TestUtils.Generic;
 using System;
-using System.Collections.Generic;
 using TimeTracker.Domain.Dtos;
 
 namespace TimeTracker.Domain.Tests.Dtos
 {
     [TestFixture]
-    public class ProjectDtoTests
+    public class TaskDtoTests
     {
-        [TestCase("ProjectId", typeof(Guid))]
+
         [TestCase("Description", typeof(string))]
-        [TestCase("TotalHours", typeof(double))]
-        [TestCase("TotalBillableHours", typeof(double))]
-        [TestCase("TimeSlots", typeof(List<TimeSlotDto>))]
-        public void ProjectDto_ShouldHaveProperty(string propertyName, Type propertyType)
+        [TestCase("HoursSpent", typeof(double))]
+        [TestCase("Date", typeof(DateTime))]
+        [TestCase("Billable", typeof(bool))]
+        [TestCase("TotalHoursSpent", typeof(double))]
+        [TestCase("DayOfTheWeek", typeof(string))]
+        //[TestCase("TimeSlots", typeof(List<TimeSlotDto>))]
+        public void TaskDto_ShouldHaveProperty(string propertyName, Type propertyType)
         {
             //---------------Set up test pack-------------------
-            var sut = typeof(ProjectDto);
+            var sut = typeof(TaskDto);
             //---------------Assert Precondition----------------
             //---------------Execute Test ----------------------
             sut.ShouldHaveProperty(propertyName, propertyType);

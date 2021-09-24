@@ -1,13 +1,12 @@
 ﻿using NUnit.Framework;
 using PeanutButter.TestUtils.Generic;
 using System;
-using System.Collections.Generic;
 using TimeTracker.Domain.Entities;
 
 namespace TimeTracker.Domain.Tests.Entities
 {
     [TestFixture]
-    public class ProjectTests
+    public class TaskTests
     {
         [Test]
         public void Construct()
@@ -15,23 +14,24 @@ namespace TimeTracker.Domain.Tests.Entities
             //---------------Set up test pack-------------------
             //---------------Assert Precondition----------------
             //---------------Execute Test ----------------------
-            Assert.DoesNotThrow(() => new Project());
+            Assert.DoesNotThrow(() => new Task());
             //---------------Test Result -----------------------
         }
 
-        [TestCase("ProjectId", typeof(Guid))]
+        [TestCase("TaskId", typeof(Guid))]
         [TestCase("Description", typeof(string))]
-        [TestCase("TotalHours", typeof(double))]
-        [TestCase("TotalBillableHours", typeof(double))]
-        [TestCase("TimeSlots", typeof(List<TimeSlot>))]
-        [TestCase("DateAdded", typeof(DateTime))]
+        [TestCase("TotalHoursSpent", typeof(double))]
+        [TestCase("DayOfTheWeek", typeof(string))]
+        [TestCase("Billable", typeof(bool))]
+        //[TestCase("TimeSlots", typeof(List<TimeSlot>))]
+        [TestCase("DateCreated", typeof(DateTime))]
         [TestCase("DateUpdated", typeof(DateTime))]
         [TestCase("AddedBy", typeof(string))]
         [TestCase("UpdatedBy", typeof(string))]
-        public void Project_ShouldHaveProperty(string propertyName, Type propertyType)
+        public void Task_ShouldHaveProperty(string propertyName, Type propertyType)
         {
             //---------------Set up test pack-------------------
-            var sut = typeof(Project);
+            var sut = typeof(Task);
             //---------------Assert Precondition----------------
             //---------------Execute Test ----------------------
             sut.ShouldHaveProperty(propertyName, propertyType);

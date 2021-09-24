@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace TimeTracker.Persistence.Migrations
+namespace TimeTracker.Persistence.Migrations.Identity
 {
     public partial class InitialMigration : Migration
     {
@@ -204,10 +204,10 @@ namespace TimeTracker.Persistence.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "3b9bcb09-6d01-4774-957e-4fb25d2ef0e5", "fdd0905c-0951-4018-b1c9-43f0802af5f2", "SuperAdmin", "SuperAdmin" },
-                    { "69300d1f-876f-4e1f-91e2-826c960178a4", "b1a63a2c-f838-43c8-9ce2-773ba816bb99", "Admin", "Admin" },
-                    { "c543fad7-5764-49f6-9ee0-96f2038a3189", "40bbadeb-21c9-4a62-b489-698bc5b5dd3c", "Moderator", "Moderator" },
-                    { "bc0db2c5-6f14-4202-818e-c14091c89f68", "9bbcb3b7-e1d7-4cc6-b7a8-1a09b9809f30", "Basic", "Basic" }
+                    { "24d9938d-ab71-4ff6-b692-ca37bd2be051", "5c93796d-dbeb-4891-8b90-20a31ee4fec1", "SuperAdmin", "SuperAdmin" },
+                    { "b42c509b-ca89-417d-8f35-55f85a0479d0", "b6a80750-aff8-483a-8232-efa81d1557ac", "Admin", "Admin" },
+                    { "938f512d-d661-442d-bc39-77131cbabcb2", "ba94b08d-b52e-49f6-8ccc-ef3bfda8839d", "Moderator", "Moderator" },
+                    { "647a717b-de0a-414c-b3ff-76f626d478f3", "014f416a-b1c3-4009-b5e7-a696e4dcc1bb", "Basic", "Basic" }
                 });
 
             migrationBuilder.InsertData(
@@ -216,8 +216,8 @@ namespace TimeTracker.Persistence.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "1040118d-48e1-4bc9-b0b6-b10e25b63fe4", 0, "fbf1e3c5-f445-4834-bf1d-0bc83b81afa2", "superadmin@gmail.com", true, "Amit", "Naik", false, null, "SUPERADMIN@GMAIL.COM", "SUPERADMIN", "AQAAAAEAACcQAAAAEBLjouNqaeiVWbN0TbXUS3+ChW3d7aQIk/BQEkWBxlrdRRngp14b0BIH0Rp65qD6mA==", null, true, "337c7ef2-6442-4c2f-aaf3-42e76414490d", false, "superadmin" },
-                    { "e97f5df5-d406-4345-b4e9-6b1963566a45", 0, "b3d14349-cdcf-4b39-858a-573a89205578", "basicuser@gmail.com", true, "Basic", "User", false, null, "BASICUSER@GMAIL.COM", "BASICUSER", "AQAAAAEAACcQAAAAEBLjouNqaeiVWbN0TbXUS3+ChW3d7aQIk/BQEkWBxlrdRRngp14b0BIH0Rp65qD6mA==", null, true, "cd38f2be-0bcb-4ac3-9169-9031e021249c", false, "basicuser" }
+                    { "6b41ce73-48d0-4db6-9598-fe9e2da0b2a3", 0, "0ddb56e1-ec13-4d50-84e1-71b19017a6b9", "superadmin@gmail.com", true, "Amit", "Naik", false, null, "SUPERADMIN@GMAIL.COM", "SUPERADMIN", "AQAAAAEAACcQAAAAEBLjouNqaeiVWbN0TbXUS3+ChW3d7aQIk/BQEkWBxlrdRRngp14b0BIH0Rp65qD6mA==", null, true, "88197ac2-4fbc-4ffa-b101-b0b4a6f74505", false, "superadmin" },
+                    { "7f41d651-3934-4ac2-b7f7-87d745b33b42", 0, "588adfa9-04e5-4fe3-b15b-bbed915aae3c", "basicuser@gmail.com", true, "Basic", "User", false, null, "BASICUSER@GMAIL.COM", "BASICUSER", "AQAAAAEAACcQAAAAEBLjouNqaeiVWbN0TbXUS3+ChW3d7aQIk/BQEkWBxlrdRRngp14b0BIH0Rp65qD6mA==", null, true, "0b3136be-cbfc-4fe4-a816-250f9551cf46", false, "basicuser" }
                 });
 
             migrationBuilder.InsertData(
@@ -226,11 +226,11 @@ namespace TimeTracker.Persistence.Migrations
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[,]
                 {
-                    { "3b9bcb09-6d01-4774-957e-4fb25d2ef0e5", "1040118d-48e1-4bc9-b0b6-b10e25b63fe4" },
-                    { "69300d1f-876f-4e1f-91e2-826c960178a4", "1040118d-48e1-4bc9-b0b6-b10e25b63fe4" },
-                    { "c543fad7-5764-49f6-9ee0-96f2038a3189", "1040118d-48e1-4bc9-b0b6-b10e25b63fe4" },
-                    { "bc0db2c5-6f14-4202-818e-c14091c89f68", "1040118d-48e1-4bc9-b0b6-b10e25b63fe4" },
-                    { "bc0db2c5-6f14-4202-818e-c14091c89f68", "e97f5df5-d406-4345-b4e9-6b1963566a45" }
+                    { "24d9938d-ab71-4ff6-b692-ca37bd2be051", "6b41ce73-48d0-4db6-9598-fe9e2da0b2a3" },
+                    { "b42c509b-ca89-417d-8f35-55f85a0479d0", "6b41ce73-48d0-4db6-9598-fe9e2da0b2a3" },
+                    { "938f512d-d661-442d-bc39-77131cbabcb2", "6b41ce73-48d0-4db6-9598-fe9e2da0b2a3" },
+                    { "647a717b-de0a-414c-b3ff-76f626d478f3", "6b41ce73-48d0-4db6-9598-fe9e2da0b2a3" },
+                    { "647a717b-de0a-414c-b3ff-76f626d478f3", "7f41d651-3934-4ac2-b7f7-87d745b33b42" }
                 });
 
             migrationBuilder.CreateIndex(

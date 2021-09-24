@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TimeTracker.Persistence;
 
-namespace TimeTracker.Persistence.Migrations.ApplicationDb
+namespace TimeTracker.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -19,58 +19,45 @@ namespace TimeTracker.Persistence.Migrations.ApplicationDb
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.1");
 
-            modelBuilder.Entity("TimeTracker.Domain.Entities.Project", b =>
+            modelBuilder.Entity("TimeTracker.Domain.Entities.Task", b =>
                 {
-                    b.Property<Guid>("ProjectId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("TimeSheetId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<double>("TotalBillableHours")
-                        .HasColumnType("float");
-
-                    b.Property<double>("TotalHours")
-                        .HasColumnType("float");
-
-                    b.HasKey("ProjectId");
-
-                    b.HasIndex("TimeSheetId");
-
-                    b.ToTable("Projects");
-                });
-
-            modelBuilder.Entity("TimeTracker.Domain.Entities.TimeSheet", b =>
-                {
-                    b.Property<Guid>("TimeSheetId")
+                    b.Property<Guid>("TaskId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("AddedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DateAdded")
+                    b.Property<bool>("Billable")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateUpdated")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("Submitted")
-                        .HasColumnType("bit");
+                    b.Property<string>("DayOfTheWeek")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("HoursSpent")
+                        .HasColumnType("float");
+
+                    b.Property<double>("TotalHoursSpent")
+                        .HasColumnType("float");
 
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                    b.HasKey("TaskId");
 
-                    b.HasKey("TimeSheetId");
-
-                    b.ToTable("TimeSheets");
+                    b.ToTable("Tasks");
                 });
 
             modelBuilder.Entity("TimeTracker.Domain.Entities.TimeSlot", b =>
@@ -85,7 +72,7 @@ namespace TimeTracker.Persistence.Migrations.ApplicationDb
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DateAdded")
+                    b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateUpdated")
@@ -97,11 +84,11 @@ namespace TimeTracker.Persistence.Migrations.ApplicationDb
                     b.Property<double>("HoursCaptured")
                         .HasColumnType("float");
 
-                    b.Property<Guid>("ProjectId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("TaskDescription")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("TaskId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -114,37 +101,20 @@ namespace TimeTracker.Persistence.Migrations.ApplicationDb
 
                     b.HasKey("TimeSlotId");
 
-                    b.HasIndex("ProjectId");
+                    b.HasIndex("TaskId");
 
                     b.ToTable("TimeSlots");
                 });
 
-            modelBuilder.Entity("TimeTracker.Domain.Entities.Project", b =>
-                {
-                    b.HasOne("TimeTracker.Domain.Entities.TimeSheet", null)
-                        .WithMany("Projects")
-                        .HasForeignKey("TimeSheetId");
-                });
-
             modelBuilder.Entity("TimeTracker.Domain.Entities.TimeSlot", b =>
                 {
-                    b.HasOne("TimeTracker.Domain.Entities.Project", "Project")
-                        .WithMany("TimeSlots")
-                        .HasForeignKey("ProjectId")
+                    b.HasOne("TimeTracker.Domain.Entities.Task", "Task")
+                        .WithMany()
+                        .HasForeignKey("TaskId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Project");
-                });
-
-            modelBuilder.Entity("TimeTracker.Domain.Entities.Project", b =>
-                {
-                    b.Navigation("TimeSlots");
-                });
-
-            modelBuilder.Entity("TimeTracker.Domain.Entities.TimeSheet", b =>
-                {
-                    b.Navigation("Projects");
+                    b.Navigation("Task");
                 });
 #pragma warning restore 612, 618
         }
