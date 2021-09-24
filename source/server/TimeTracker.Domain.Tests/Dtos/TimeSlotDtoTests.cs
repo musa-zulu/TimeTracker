@@ -19,14 +19,14 @@ namespace TimeTracker.Domain.Tests.Dtos
         }
 
         [TestCase("TimeSlotId", typeof(Guid))]
-        [TestCase("ProjectId", typeof(Guid))]
+        [TestCase("TaskId", typeof(Guid))]
         [TestCase("UserId", typeof(Guid))]
         [TestCase("TaskDescription", typeof(string))]
         [TestCase("WeekNumber", typeof(int))]
         [TestCase("Date", typeof(DateTime))]
         [TestCase("DayDescription", typeof(string))]
         [TestCase("HoursCaptured", typeof(double))]
-        [TestCase("Project", typeof(ProjectDto))]
+        [TestCase("Task", typeof(TaskDto))]
         public void TimeSlotDto_ShouldHaveProperty(string propertyName, Type propertyType)
         {
             //---------------Set up test pack-------------------

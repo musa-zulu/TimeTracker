@@ -17,7 +17,7 @@ namespace TimeTracker.Domain.Tests
             //---------------Test Result -----------------------
         }
 
-        [TestCase("DateAdded", typeof(DateTime))]
+        [TestCase("DateCreated", typeof(DateTime))]
         [TestCase("DateUpdated", typeof(DateTime))]
         [TestCase("AddedBy", typeof(string))]
         [TestCase("UpdatedBy", typeof(string))]

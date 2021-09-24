@@ -7,7 +7,8 @@ namespace TimeTracker.Domain.Entities
     {
         public Guid TimeSheetId { get; set; }
         public Guid UserId { get; set; }
-        public bool Submitted { get; set; }                
-        public virtual List<Project> Projects { get; set; }
+        public bool Submitted { get; set; }
+        public double Total { get; set; }
+        public virtual List<Task> Tasks { get; set; }
     }
-}  
+}
