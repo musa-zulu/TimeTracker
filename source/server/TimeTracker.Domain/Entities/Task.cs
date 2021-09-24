@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace TimeTracker.Domain.Entities
 {
@@ -11,5 +12,6 @@ namespace TimeTracker.Domain.Entities
         public bool Billable { get; set; }
         public double TotalHoursSpent { get; set; }
         public string DayOfTheWeek { get; set; }
+        public virtual List<TimeSlot> TimeSlots { get; set; }
     }
 }

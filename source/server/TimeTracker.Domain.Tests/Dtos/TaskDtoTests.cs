@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using PeanutButter.TestUtils.Generic;
 using System;
+using System.Collections.Generic;
 using TimeTracker.Domain.Dtos;
 
 namespace TimeTracker.Domain.Tests.Dtos
@@ -15,7 +16,7 @@ namespace TimeTracker.Domain.Tests.Dtos
         [TestCase("Billable", typeof(bool))]
         [TestCase("TotalHoursSpent", typeof(double))]
         [TestCase("DayOfTheWeek", typeof(string))]
-        //[TestCase("TimeSlots", typeof(List<TimeSlotDto>))]
+        [TestCase("TimeSlots", typeof(List<TimeSlotDto>))]
         public void TaskDto_ShouldHaveProperty(string propertyName, Type propertyType)
         {
             //---------------Set up test pack-------------------
@@ -25,6 +26,5 @@ namespace TimeTracker.Domain.Tests.Dtos
             sut.ShouldHaveProperty(propertyName, propertyType);
             //---------------Test Result -----------------------
         }
-
     }
 }

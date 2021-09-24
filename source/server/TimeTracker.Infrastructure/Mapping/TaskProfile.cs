@@ -8,7 +8,9 @@ namespace TimeTracker.Infrastructure.Mapping
     {
         public TaskProfile()
         {
-            CreateMap<TaskDto, Task>().ReverseMap();
+            CreateMap<TaskDto, Task>()
+                 .ForMember(dest => dest.TimeSlots, opt =>
+                    opt.Ignore());
         }
     }
 }

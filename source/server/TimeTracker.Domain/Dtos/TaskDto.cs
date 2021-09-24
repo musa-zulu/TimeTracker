@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace TimeTracker.Domain.Dtos
 {
@@ -13,5 +14,6 @@ namespace TimeTracker.Domain.Dtos
         //sum of all hours spent on all tasks for a given day
         public double TotalHoursSpent { get; set; }
         public string DayOfTheWeek { get; set; }
+        public List<TimeSlotDto> TimeSlots { get; set; }
     }
 }
