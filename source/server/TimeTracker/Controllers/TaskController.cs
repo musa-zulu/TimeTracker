@@ -54,8 +54,12 @@ namespace TimeTracker.Controllers
 
         [HttpPut]
         [Route("Update")]
-        public async Task<IActionResult> Update(UpdateTaskCommand command)
+        public async Task<IActionResult> Update(Guid taskId, UpdateTaskCommand command)
         {
+            if (taskId != command.TaskDto.TaskId)
+            {
+                return BadRequest();
+            }
             return Ok(await Mediator.Send(command));
         }
 
