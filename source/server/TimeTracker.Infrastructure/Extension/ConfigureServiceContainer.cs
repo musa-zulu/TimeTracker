@@ -70,7 +70,7 @@ namespace TimeTracker.Infrastructure.Extension
                             Url = new Uri("https://opensource.org/licenses/MIT")
                         }
                     });
-
+                setupAction.SchemaFilter<SwaggerHidePropertyFilter>();
                 setupAction.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Type = SecuritySchemeType.Http,
