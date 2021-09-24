@@ -32,7 +32,7 @@ namespace TimeTracker.Infrastructure.Extension
         {
             var mappingConfig = new MapperConfiguration(mc =>
             {
-                mc.AddProfile(new ProjectProfile());
+                mc.AddProfile(new TaskProfile());
             });
             IMapper mapper = mappingConfig.CreateMapper();
             serviceCollection.AddSingleton(mapper);
@@ -46,7 +46,7 @@ namespace TimeTracker.Infrastructure.Extension
         {
             serviceCollection.AddTransient<IDateTimeService, DateTimeService>();
             serviceCollection.AddTransient<IAccountService, AccountService>();
-            serviceCollection.AddTransient<IProjectService, ProjectService>();
+            serviceCollection.AddTransient<ITaskService, TaskService>();
         }
         public static void AddSwaggerOpenAPI(this IServiceCollection serviceCollection)
         {
