@@ -8,13 +8,13 @@ namespace TimeTracker.Service.Contract
 {
     public interface IGenericService<T> where T : class
     {
-        Task<Response<T>> GetById(Guid Id);
-        Task<Response<IEnumerable<T>>> GetAll();
-        Task<Response<IEnumerable<T>>> Find(Expression<Func<T, bool>> expression);
-        Task<Response<bool>> Add(T entity);
-        Task<Response<bool>> AddRange(IEnumerable<T> entities);
-        Task<Response<bool>> Remove(T entity);
-        Task<Response<bool>> RemoveRange(IEnumerable<T> entities);
-        Task<Response<bool>> Update(T entity);
+        Task<Response<T>> GetByIdAsync(Guid Id);
+        Task<Response<IEnumerable<T>>> GetAllAsync();
+        Task<Response<IEnumerable<T>>> FindAsync(Expression<Func<T, bool>> expression);
+        Task<Response<bool>> AddAsync(T entity);
+        Task<Response<bool>> AddRangeAsync(IEnumerable<T> entities);
+        Task<Response<bool>> RemoveAsync(T entity);
+        Task<Response<bool>> RemoveRangeAsync(IEnumerable<T> entities);
+        Task<Response<bool>> UpdateAsync(T entity);
     }
 }

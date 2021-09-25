@@ -83,6 +83,7 @@ namespace TimeTracker.Service.Implementation
 
                 return new Response<Domain.Entities.Task>
                 {
+                    Succeeded = true,
                     Data = task,
                     Message = "Data successfully retrieved!!!"
                 };
@@ -107,6 +108,7 @@ namespace TimeTracker.Service.Implementation
 
                 return new Response<List<Task>>
                 {
+                    Succeeded = true,
                     Data = tasks,
                     Message = "Data successfully retrieved!!!"
                 };

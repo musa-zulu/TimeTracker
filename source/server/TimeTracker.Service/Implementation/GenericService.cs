@@ -19,7 +19,7 @@ namespace TimeTracker.Service.Implementation
             _applicationDbContext = applicationDbContext ?? throw new ApplicationException(nameof(applicationDbContext));
         }
 
-        public async Task<Response<bool>> Add(T entity)
+        public async Task<Response<bool>> AddAsync(T entity)
         {
             try
             {
@@ -41,7 +41,7 @@ namespace TimeTracker.Service.Implementation
         }
 
 
-        public async Task<Response<bool>> AddRange(IEnumerable<T> entities)
+        public async Task<Response<bool>> AddRangeAsync(IEnumerable<T> entities)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace TimeTracker.Service.Implementation
             }
         }
 
-        public async Task<Response<IEnumerable<T>>> Find(Expression<Func<T, bool>> expression)
+        public async Task<Response<IEnumerable<T>>> FindAsync(Expression<Func<T, bool>> expression)
         {
             try
             {
@@ -84,7 +84,7 @@ namespace TimeTracker.Service.Implementation
             }
         }
 
-        public async Task<Response<IEnumerable<T>>> GetAll()
+        public async Task<Response<IEnumerable<T>>> GetAllAsync()
         {
             try
             {
@@ -106,7 +106,7 @@ namespace TimeTracker.Service.Implementation
             }
         }
 
-        public async Task<Response<T>> GetById(Guid Id)
+        public async Task<Response<T>> GetByIdAsync(Guid Id)
         {
             try
             {
@@ -128,7 +128,7 @@ namespace TimeTracker.Service.Implementation
             }
         }
 
-        public async Task<Response<bool>> Remove(T entity)
+        public async Task<Response<bool>> RemoveAsync(T entity)
         {
             try
             {
@@ -149,7 +149,7 @@ namespace TimeTracker.Service.Implementation
             }
         }
 
-        public async Task<Response<bool>> RemoveRange(IEnumerable<T> entities)
+        public async Task<Response<bool>> RemoveRangeAsync(IEnumerable<T> entities)
         {
             try
             {
@@ -170,7 +170,7 @@ namespace TimeTracker.Service.Implementation
             }
         }
 
-        public async Task<Response<bool>> Update(T entity)
+        public async Task<Response<bool>> UpdateAsync(T entity)
         {
             try
             {

@@ -9,7 +9,8 @@ using TimeTracker.Service.Features.TaskFeatures.Queries;
 namespace TimeTracker.Controllers
 {
     [ApiController]
-    [Route("api/v{version:apiVersion}/Task")]
+    //[Route("api/v{version:apiVersion}/Task")]
+    [Route("api/[controller]")]
     [ApiVersion("1.0")]
     public class TaskController : ControllerBase
     {
