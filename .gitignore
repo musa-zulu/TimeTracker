@@ -27,3 +27,7 @@ source/server/.vs/TimeTracker/DesignTimeBuild/.dtbcache.v2
 
 source/server/TimeTracker.Domain.Tests/Auth/.editorconfig
 
+source/server/.vscode/launch.json
+source/server/.vs/TimeTracker/project-colors.json
+source/server/.vs/TimeTracker/v17/.futdcache.v1
+source/server/.vs/TimeTracker/v17/.suo
