@@ -19,7 +19,7 @@ namespace TimeTracker.Service.Features.TaskFeatures.Queries
             }
             public async Task<Response<List<Task>>> Handle(GetAllTasksQuery request, CancellationToken cancellationToken)
             {
-                return await _taskService.GetTasksAsync(); ;
+                return await _taskService.GetTasksAsync();
             }
         }
     }

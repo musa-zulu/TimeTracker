@@ -36,10 +36,9 @@ namespace TimeTracker.Persistence
         public DbSet<Task> Tasks { get; set; }
         public DbSet<TimeSlot> TimeSlots { get; set; }
 
-        public async Task<int> SaveChangesAsync()
+        public async Task<int> SaveChangesAsync(string userName = null)
         {
-            //var userId = Microsoft.AspNetCore.Mvc.HttpContext.User?.Identity?.Name ?? "SYS";
-            var userId = "SYS";
+            userName ??= "SYS";
             var addedAuditedEntities = ChangeTracker.Entries<BaseEntity>().Where(p => p.State == EntityState.Added)
                 .Select(p => p.Entity);
             var modifiedAuditedEntities = ChangeTracker.Entries<BaseEntity>().Where(p => p.State == EntityState.Modified)
@@ -48,9 +47,9 @@ namespace TimeTracker.Persistence
             foreach (var added in addedAuditedEntities)
             {
                 added.DateCreated = now;
-                added.AddedBy = userId;
+                added.AddedBy = userName;
                 added.DateUpdated = now;
-                added.UpdatedBy = userId;
+                added.UpdatedBy = userName;
             }
 
             foreach (var modified in modifiedAuditedEntities)
@@ -58,9 +57,9 @@ namespace TimeTracker.Persistence
                 if (modified.DateCreated == DateTime.MinValue)
                     modified.DateCreated = now;
                 if (string.IsNullOrEmpty(modified.AddedBy))
-                    modified.AddedBy = userId;
+                    modified.AddedBy = userName;
                 modified.DateUpdated = now;
-                modified.UpdatedBy = userId;
+                modified.UpdatedBy = userName;
             }
             return await base.SaveChangesAsync();
         }

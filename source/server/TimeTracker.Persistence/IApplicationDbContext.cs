@@ -10,6 +10,6 @@ namespace TimeTracker.Persistence
         DbSet<Task> Tasks { get; set; }
         DbSet<TimeSlot> TimeSlots { get; set; }
 
-        Task<int> SaveChangesAsync();
+        Task<int> SaveChangesAsync(string userName = null);
     }
 }
