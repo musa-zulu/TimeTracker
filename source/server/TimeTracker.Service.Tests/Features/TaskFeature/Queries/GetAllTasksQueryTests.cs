@@ -10,6 +10,7 @@ using TimeTracker.Service.Contract;
 using TimeTracker.Service.Features.TaskFeatures.Queries;
 using TimeTracker.Service.Tests.Common;
 using static TimeTracker.Service.Features.TaskFeatures.Queries.GetAllTasksQuery;
+using UserTask = TimeTracker.Domain.Entities.Task;
 
 namespace TimeTracker.Service.Tests.Features.TaskFeature.Queries
 {
@@ -17,12 +18,10 @@ namespace TimeTracker.Service.Tests.Features.TaskFeature.Queries
     public class GetAllTasksQueryTests
     {
         private readonly IMapper _mapper;
-        private readonly Mock<ITaskService> _mockService;
+        private Mock<ITaskService> _mockService;
 
         public GetAllTasksQueryTests()
         {
-            _mockService = MockServices.GetTasks();
-
             var mapperConfig = new MapperConfiguration(c => {
                 c.AddProfile<TaskProfile>();
             });
@@ -30,16 +29,36 @@ namespace TimeTracker.Service.Tests.Features.TaskFeature.Queries
         }
 
         [Test]
-        public async Task GetTasksAsync_ShouldBeOfType_Task()
+        public async Task GetTasksAsync_ShouldBeOfTypeTask()
         {
             //---------------Set up test pack-------------------  
+            _mockService = GetTasks(0);
             var handler = new GetAllTasksQueryHandler(_mockService.Object);
             //---------------Assert Precondition----------------
             //---------------Execute Test ----------------------
             var result = await handler.Handle(new GetAllTasksQuery(), 
                 cancellationToken: System.Threading.CancellationToken.None);
             //---------------Test Result -----------------------
-            result.Should().BeOfType<Response<List<Domain.Entities.Task>>>();
+            result.Should().BeOfType<Response<List<UserTask>>>();
+        }
+
+        [Test]
+        public async Task GetTasksAsync_GivenNoTasksExists_ShouldReturnEmptyList()
+        {
+            //---------------Set up test pack-------------------                     
+            _mockService = GetTasks(0);
+            var handler = new GetAllTasksQueryHandler(_mockService.Object);
+            //---------------Assert Precondition----------------
+            //---------------Execute Test ----------------------
+            var result = await handler.Handle(new GetAllTasksQuery(),
+                cancellationToken: System.Threading.CancellationToken.None);
+            //---------------Test Result -----------------------
+            Assert.AreEqual(0, result.Data.Count);
+        }
+
+        private static Mock<ITaskService> GetTasks(int numberOfTasks)
+        {
+            return MockServices.GetTasks(numberOfTasks);
         }
 
     }

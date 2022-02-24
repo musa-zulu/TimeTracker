@@ -9,26 +9,24 @@ namespace TimeTracker.Service.Tests.Common
 {
     public static class MockServices
     {
-        public static Mock<ITaskService> GetTasks()
+        public static Mock<ITaskService> GetTasks(int? numberOfTasks)
         {
-            var tasks = new List<Task>
+            var tasks = new List<Task>();
+            for (var task = 0; task < numberOfTasks; task++)
             {
-                new Task
+                tasks.Add(new Task
                 {
                     TaskId = Guid.NewGuid(),
-                    Description = "new task"
-                }
-            };
+                    Description = "task " + task
+                });
+            }            
             var tasksResponse = new Response<List<Task>>
             {
                 Data = tasks
             };
 
             var mockService = new Mock<ITaskService>();
-            mockService.Setup(x => x.GetTasksAsync()).ReturnsAsync(tasksResponse);
-            //mockService.Setup(x => x.AddTaskAsync(It.IsAny<Task>()))
-            //    .Returns(Task.FromResult(true));
-
+            mockService.Setup(x => x.GetTasksAsync()).ReturnsAsync(tasksResponse);            
             return mockService;
         }
     }

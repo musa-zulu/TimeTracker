@@ -4,7 +4,7 @@ namespace TimeTracker.Domain.Entities
 {
     public class Employee : BaseEntity
     {
-        private Guid EmployeeId { get; set; }
+        public Guid EmployeeId { get; set; }
         public string EmployeeName { get; set; }
         public string EmployeeLastName { get; set; }
         public string EmployeeMaidenName { get; set; }
