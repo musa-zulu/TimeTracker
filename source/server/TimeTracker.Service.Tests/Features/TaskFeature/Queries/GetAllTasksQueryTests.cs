@@ -56,6 +56,48 @@ namespace TimeTracker.Service.Tests.Features.TaskFeature.Queries
             Assert.AreEqual(0, result.Data.Count);
         }
 
+        [Test]
+        public async Task GetTasksAsync_GivenOneTaskExists_ShouldReturnTask()
+        {
+            //---------------Set up test pack-------------------                     
+            _mockService = GetTasks(1);
+            var handler = new GetAllTasksQueryHandler(_mockService.Object);
+            //---------------Assert Precondition----------------
+            //---------------Execute Test ----------------------
+            var result = await handler.Handle(new GetAllTasksQuery(),
+                cancellationToken: System.Threading.CancellationToken.None);
+            //---------------Test Result -----------------------
+            Assert.AreEqual(1, result.Data.Count);
+        }
+
+        [Test]
+        public async Task GetTasksAsync_GivenTwoTasksExists_ShouldReturnThoseTasks()
+        {
+            //---------------Set up test pack-------------------                     
+            _mockService = GetTasks(2);
+            var handler = new GetAllTasksQueryHandler(_mockService.Object);
+            //---------------Assert Precondition----------------
+            //---------------Execute Test ----------------------
+            var result = await handler.Handle(new GetAllTasksQuery(),
+                cancellationToken: System.Threading.CancellationToken.None);
+            //---------------Test Result -----------------------
+            Assert.AreEqual(2, result.Data.Count);
+        }
+
+        [Test]
+        public async Task GetTasksAsync_GivenManyTasksExists_ShouldReturnThoseTasks()
+        {
+            //---------------Set up test pack-------------------                     
+            _mockService = GetTasks(3);
+            var handler = new GetAllTasksQueryHandler(_mockService.Object);
+            //---------------Assert Precondition----------------
+            //---------------Execute Test ----------------------
+            var result = await handler.Handle(new GetAllTasksQuery(),
+                cancellationToken: System.Threading.CancellationToken.None);
+            //---------------Test Result -----------------------
+            Assert.AreEqual(3, result.Data.Count);
+        }
+
         private static Mock<ITaskService> GetTasks(int numberOfTasks)
         {
             return MockServices.GetTasks(numberOfTasks);

@@ -29,5 +29,21 @@ namespace TimeTracker.Service.Tests.Common
             mockService.Setup(x => x.GetTasksAsync()).ReturnsAsync(tasksResponse);            
             return mockService;
         }
+
+        public static Mock<ITaskService> GetTaskById(Guid taskId)
+        {
+            var tasks = new List<Task>();
+            var tasksResponse = new Response<Task>
+            {
+                Data = new Task
+                {
+                    TaskId = taskId
+                }
+            };
+
+            var mockService = new Mock<ITaskService>();            
+            mockService.Setup(x => x.GetTaskById(taskId)).ReturnsAsync(tasksResponse);
+            return mockService;
+        }
     }
 }
