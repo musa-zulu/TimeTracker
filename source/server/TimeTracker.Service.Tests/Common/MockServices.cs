@@ -1,4 +1,4 @@
-﻿using Moq;
+﻿using NSubstitute;
 using System;
 using System.Collections.Generic;
 using TimeTracker.Domain.Common;
@@ -9,7 +9,7 @@ namespace TimeTracker.Service.Tests.Common
 {
     public static class MockServices
     {
-        public static Mock<ITaskService> GetTasks(int? numberOfTasks)
+        public static ITaskService GetTasks(int? numberOfTasks)
         {
             var tasks = new List<Task>();
             for (var task = 0; task < numberOfTasks; task++)
@@ -19,20 +19,19 @@ namespace TimeTracker.Service.Tests.Common
                     TaskId = Guid.NewGuid(),
                     Description = "task " + task
                 });
-            }            
+            }
             var tasksResponse = new Response<List<Task>>
             {
                 Data = tasks
             };
 
-            var mockService = new Mock<ITaskService>();
-            mockService.Setup(x => x.GetTasksAsync()).ReturnsAsync(tasksResponse);            
+            var mockService = Substitute.For<ITaskService>();
+            mockService.GetTasksAsync().Returns(tasksResponse);
             return mockService;
         }
 
-        public static Mock<ITaskService> GetTaskById(Guid taskId)
-        {
-            var tasks = new List<Task>();
+        public static ITaskService GetTaskById(Guid taskId)
+        {            
             var tasksResponse = new Response<Task>
             {
                 Data = new Task
@@ -41,8 +40,14 @@ namespace TimeTracker.Service.Tests.Common
                 }
             };
 
-            var mockService = new Mock<ITaskService>();            
-            mockService.Setup(x => x.GetTaskById(taskId)).ReturnsAsync(tasksResponse);
+            var mockService = Substitute.For<ITaskService>();
+            mockService.GetTaskById(taskId).Returns(tasksResponse);
+            return mockService;
+        }
+
+        public static ITaskService GetMockService(int? taskCount)
+        {
+            var mockService = GetTasks(taskCount);
             return mockService;
         }
     }

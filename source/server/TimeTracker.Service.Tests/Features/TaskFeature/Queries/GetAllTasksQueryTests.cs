@@ -1,11 +1,8 @@
-﻿using AutoMapper;
-using FluentAssertions;
-using Moq;
+﻿using FluentAssertions;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TimeTracker.Domain.Common;
-using TimeTracker.Infrastructure.Mapping;
 using TimeTracker.Service.Contract;
 using TimeTracker.Service.Features.TaskFeatures.Queries;
 using TimeTracker.Service.Tests.Common;
@@ -16,24 +13,14 @@ namespace TimeTracker.Service.Tests.Features.TaskFeature.Queries
 {
     [TestFixture]
     public class GetAllTasksQueryTests
-    {
-        private readonly IMapper _mapper;
-        private Mock<ITaskService> _mockService;
-
-        public GetAllTasksQueryTests()
-        {
-            var mapperConfig = new MapperConfiguration(c => {
-                c.AddProfile<TaskProfile>();
-            });
-            _mapper = mapperConfig.CreateMapper();
-        }
-
+    {        
+        private ITaskService _mockService;
         [Test]
         public async Task GetTasksAsync_ShouldBeOfTypeTask()
         {
             //---------------Set up test pack-------------------  
             _mockService = GetTasks(0);
-            var handler = new GetAllTasksQueryHandler(_mockService.Object);
+            var handler = GetAllTasksQueryHandler();
             //---------------Assert Precondition----------------
             //---------------Execute Test ----------------------
             var result = await handler.Handle(new GetAllTasksQuery(), 
@@ -47,7 +34,7 @@ namespace TimeTracker.Service.Tests.Features.TaskFeature.Queries
         {
             //---------------Set up test pack-------------------                     
             _mockService = GetTasks(0);
-            var handler = new GetAllTasksQueryHandler(_mockService.Object);
+            var handler = GetAllTasksQueryHandler();
             //---------------Assert Precondition----------------
             //---------------Execute Test ----------------------
             var result = await handler.Handle(new GetAllTasksQuery(),
@@ -61,7 +48,7 @@ namespace TimeTracker.Service.Tests.Features.TaskFeature.Queries
         {
             //---------------Set up test pack-------------------                     
             _mockService = GetTasks(1);
-            var handler = new GetAllTasksQueryHandler(_mockService.Object);
+            var handler = GetAllTasksQueryHandler();
             //---------------Assert Precondition----------------
             //---------------Execute Test ----------------------
             var result = await handler.Handle(new GetAllTasksQuery(),
@@ -75,7 +62,7 @@ namespace TimeTracker.Service.Tests.Features.TaskFeature.Queries
         {
             //---------------Set up test pack-------------------                     
             _mockService = GetTasks(2);
-            var handler = new GetAllTasksQueryHandler(_mockService.Object);
+            var handler = GetAllTasksQueryHandler();
             //---------------Assert Precondition----------------
             //---------------Execute Test ----------------------
             var result = await handler.Handle(new GetAllTasksQuery(),
@@ -89,7 +76,7 @@ namespace TimeTracker.Service.Tests.Features.TaskFeature.Queries
         {
             //---------------Set up test pack-------------------                     
             _mockService = GetTasks(3);
-            var handler = new GetAllTasksQueryHandler(_mockService.Object);
+            var handler = GetAllTasksQueryHandler();
             //---------------Assert Precondition----------------
             //---------------Execute Test ----------------------
             var result = await handler.Handle(new GetAllTasksQuery(),
@@ -98,7 +85,12 @@ namespace TimeTracker.Service.Tests.Features.TaskFeature.Queries
             Assert.AreEqual(3, result.Data.Count);
         }
 
-        private static Mock<ITaskService> GetTasks(int numberOfTasks)
+        private GetAllTasksQueryHandler GetAllTasksQueryHandler()
+        {
+            return new GetAllTasksQueryHandler(_mockService);
+        }
+
+        private static ITaskService GetTasks(int numberOfTasks)
         {
             return MockServices.GetTasks(numberOfTasks);
         }

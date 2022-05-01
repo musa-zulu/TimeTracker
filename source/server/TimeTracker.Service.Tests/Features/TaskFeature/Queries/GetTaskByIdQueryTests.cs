@@ -15,13 +15,13 @@ namespace TimeTracker.Service.Tests.Features.TaskFeature.Queries
     [TestFixture]
     public class GetTaskByIdQueryTests
     {
-        private Mock<ITaskService> _mockService;
+        private ITaskService _mockService;
         [Test]
         public async Task GetTaskByIdAsync_ShouldBeOfTypeTask()
         {
             //---------------Set up test pack-------------------  
             _mockService = GetTaskById(Guid.Empty);
-            var handler = new GetTaskByIdQueryHandler(_mockService.Object);
+            var handler = new GetTaskByIdQueryHandler(_mockService);
             //---------------Assert Precondition----------------
             //---------------Execute Test ----------------------
             var result = await handler.Handle(new GetTaskByIdQuery(),
@@ -35,7 +35,7 @@ namespace TimeTracker.Service.Tests.Features.TaskFeature.Queries
         {
             //---------------Set up test pack-------------------                     
             _mockService = GetTaskById(Guid.Empty);
-            var handler = new GetTaskByIdQueryHandler(_mockService.Object);
+            var handler = new GetTaskByIdQueryHandler(_mockService);
             //---------------Assert Precondition----------------
             //---------------Execute Test ----------------------
             var result = await handler.Handle(new GetTaskByIdQuery(),
@@ -54,7 +54,7 @@ namespace TimeTracker.Service.Tests.Features.TaskFeature.Queries
             {
                 TaskId = taskId,
             };
-            var handler = new GetTaskByIdQueryHandler(_mockService.Object);
+            var handler = new GetTaskByIdQueryHandler(_mockService);
             //---------------Assert Precondition----------------
             //---------------Execute Test ----------------------
             var result = await handler.Handle(query,
@@ -63,7 +63,7 @@ namespace TimeTracker.Service.Tests.Features.TaskFeature.Queries
             Assert.AreEqual(taskId, result.Data.TaskId);
         }
 
-        private static Mock<ITaskService> GetTaskById(Guid taskId)
+        private static ITaskService GetTaskById(Guid taskId)
         {
             return MockServices.GetTaskById(taskId);
         }

@@ -50,7 +50,7 @@ namespace TimeTracker.Service.Features.TimeSlotFeatures.Commands
                 }
                 timeSlot.TimeSlotId = Guid.NewGuid();
                 //timeSlot.UserId = Microsoft.AspNetCore.Mvc.HttpContext.User?.Identity?.Name ?? Guid.Empty; this can't be a name but a user id
-                return await _timeSlotsService.AddAsync(timeSlot);
+                return await _timeSlotsService.AddTimeSlotAsync(timeSlot);
             }
         }
     }

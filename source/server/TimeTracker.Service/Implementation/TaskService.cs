@@ -14,8 +14,8 @@ namespace TimeTracker.Service.Implementation
         private readonly IApplicationDbContext _applicationDbContext;
 
         public TaskService(IApplicationDbContext applicationDbContext)
-        {
-            _applicationDbContext = applicationDbContext;
+        {            
+            _applicationDbContext = applicationDbContext ?? throw new ArgumentNullException(nameof(applicationDbContext));
         }
 
         public async Task<Response<bool>> AddTaskAsync(Task newTask)
@@ -45,8 +45,12 @@ namespace TimeTracker.Service.Implementation
             {
                 var task = await GetTaskById(taskId);
                 if (task == null) throw new ArgumentNullException(nameof(task));
-                //DeleteTaskDetailsFrom(task.Data);
+
+                if (task.Data?.TimeSlots != null)
+                    DeleteTaskDetailsFrom(task.Data);
+                
                 _applicationDbContext.Tasks.Remove(task.Data);
+                
                 return new Response<bool>
                 {
                     Succeeded = await _applicationDbContext.SaveChangesAsync() > 0,
@@ -63,15 +67,15 @@ namespace TimeTracker.Service.Implementation
             }
         }
 
-        //private void DeleteTaskDetailsFrom(Task task)
-        //{
-        //    var timeSlots = task?.TimeSlots;
-        //    if (timeSlots != null && timeSlots.Count > 0)
-        //    {
-        //        foreach (var timeSlot in timeSlots)
-        //            _applicationDbContext.TimeSlots.Remove(timeSlot);
-        //    }
-        //}
+        private void DeleteTaskDetailsFrom(Task task)
+        {
+            var timeSlots = task?.TimeSlots;
+            if (timeSlots != null && timeSlots.Count > 0)
+            {
+                foreach (var timeSlot in timeSlots)
+                    _applicationDbContext.TimeSlots.Remove(timeSlot);
+            }
+        }
 
         public async Task<Response<Task>> GetTaskById(Guid taskId)
         {
@@ -81,7 +85,7 @@ namespace TimeTracker.Service.Implementation
                                       .Tasks
                                       .FirstOrDefaultAsync(x => x.TaskId == taskId);
 
-                return new Response<Domain.Entities.Task>
+                return new Response<Task>
                 {
                     Succeeded = true,
                     Data = task,
