@@ -23,8 +23,7 @@ namespace TimeTracker.Service.Tests.Features.TaskFeature.Queries
             var handler = GetAllTasksQueryHandler();
             //---------------Assert Precondition----------------
             //---------------Execute Test ----------------------
-            var result = await handler.Handle(new GetAllTasksQuery(), 
-                cancellationToken: System.Threading.CancellationToken.None);
+            Response<List<UserTask>> result = await Handle(handler);
             //---------------Test Result -----------------------
             result.Should().BeOfType<Response<List<UserTask>>>();
         }
@@ -37,8 +36,7 @@ namespace TimeTracker.Service.Tests.Features.TaskFeature.Queries
             var handler = GetAllTasksQueryHandler();
             //---------------Assert Precondition----------------
             //---------------Execute Test ----------------------
-            var result = await handler.Handle(new GetAllTasksQuery(),
-                cancellationToken: System.Threading.CancellationToken.None);
+            Response<List<UserTask>> result = await Handle(handler);
             //---------------Test Result -----------------------
             Assert.AreEqual(0, result.Data.Count);
         }
@@ -51,8 +49,7 @@ namespace TimeTracker.Service.Tests.Features.TaskFeature.Queries
             var handler = GetAllTasksQueryHandler();
             //---------------Assert Precondition----------------
             //---------------Execute Test ----------------------
-            var result = await handler.Handle(new GetAllTasksQuery(),
-                cancellationToken: System.Threading.CancellationToken.None);
+            Response<List<UserTask>> result = await Handle(handler);
             //---------------Test Result -----------------------
             Assert.AreEqual(1, result.Data.Count);
         }
@@ -65,8 +62,7 @@ namespace TimeTracker.Service.Tests.Features.TaskFeature.Queries
             var handler = GetAllTasksQueryHandler();
             //---------------Assert Precondition----------------
             //---------------Execute Test ----------------------
-            var result = await handler.Handle(new GetAllTasksQuery(),
-                cancellationToken: System.Threading.CancellationToken.None);
+            Response<List<UserTask>> result = await Handle(handler);
             //---------------Test Result -----------------------
             Assert.AreEqual(2, result.Data.Count);
         }
@@ -79,10 +75,15 @@ namespace TimeTracker.Service.Tests.Features.TaskFeature.Queries
             var handler = GetAllTasksQueryHandler();
             //---------------Assert Precondition----------------
             //---------------Execute Test ----------------------
-            var result = await handler.Handle(new GetAllTasksQuery(),
-                cancellationToken: System.Threading.CancellationToken.None);
+            Response<List<UserTask>> result = await Handle(handler);
             //---------------Test Result -----------------------
             Assert.AreEqual(3, result.Data.Count);
+        }
+
+        private static async Task<Response<List<UserTask>>> Handle(GetAllTasksQueryHandler handler)
+        {           
+            return await handler.Handle(new GetAllTasksQuery(),
+                cancellationToken: System.Threading.CancellationToken.None);
         }
 
         private GetAllTasksQueryHandler GetAllTasksQueryHandler()

@@ -24,8 +24,7 @@ namespace TimeTracker.Service.Tests.Features.TaskFeature.Queries
             var handler = new GetTaskByIdQueryHandler(_mockService);
             //---------------Assert Precondition----------------
             //---------------Execute Test ----------------------
-            var result = await handler.Handle(new GetTaskByIdQuery(),
-                cancellationToken: System.Threading.CancellationToken.None);
+            Response<UserTask> result = await Handle(new GetTaskByIdQuery(), handler);
             //---------------Test Result -----------------------
             result.Should().BeOfType<Response<UserTask>>();
         }
@@ -38,8 +37,7 @@ namespace TimeTracker.Service.Tests.Features.TaskFeature.Queries
             var handler = new GetTaskByIdQueryHandler(_mockService);
             //---------------Assert Precondition----------------
             //---------------Execute Test ----------------------
-            var result = await handler.Handle(new GetTaskByIdQuery(),
-                   cancellationToken: System.Threading.CancellationToken.None);
+            Response<UserTask> result = await Handle(new GetTaskByIdQuery(), handler);
             //---------------Test Result -----------------------
             Assert.AreEqual(Guid.Empty, result.Data.TaskId);
         }
@@ -57,10 +55,15 @@ namespace TimeTracker.Service.Tests.Features.TaskFeature.Queries
             var handler = new GetTaskByIdQueryHandler(_mockService);
             //---------------Assert Precondition----------------
             //---------------Execute Test ----------------------
-            var result = await handler.Handle(query,
-                              cancellationToken: System.Threading.CancellationToken.None);
+            Response<UserTask> result = await Handle(query, handler);
             //---------------Test Result -----------------------
             Assert.AreEqual(taskId, result.Data.TaskId);
+        }
+
+        private static async Task<Response<UserTask>> Handle(GetTaskByIdQuery query, GetTaskByIdQueryHandler handler)
+        {
+            return await handler.Handle(query,
+                              cancellationToken: System.Threading.CancellationToken.None);
         }
 
         private static ITaskService GetTaskById(Guid taskId)
