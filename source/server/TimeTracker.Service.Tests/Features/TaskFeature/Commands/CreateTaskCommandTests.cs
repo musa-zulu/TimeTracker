@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using NSubstitute;
 using NUnit.Framework;
 using Shouldly;
 using System.Threading.Tasks;
@@ -88,6 +89,20 @@ namespace TimeTracker.Service.Tests.Features.TaskFeature.Commands
             var tasks = await _mockService.GetTasksAsync();
             //---------------Test Result -----------------------
             tasks.Data.Count.ShouldBe(0);
+        }
+
+        [Test]
+        public async Task Handle_GivenAValidTask_ShouldCallAddTaskAsync()
+        {
+            //---------------Set up test pack-------------------  
+            _mockService = GetMockService(1);
+            _handler = CreateTaskCommandHandler();
+            //---------------Assert Precondition----------------
+            //---------------Execute Test ----------------------           
+            await Handle();
+            var tasks = await _mockService.GetTasksAsync();
+            //---------------Test Result -----------------------
+            _ = _mockService.Received(1).AddTaskAsync(Arg.Any<Domain.Entities.Task>());
         }
 
         private async Task Handle()
