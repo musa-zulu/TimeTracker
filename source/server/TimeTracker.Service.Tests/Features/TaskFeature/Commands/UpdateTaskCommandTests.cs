@@ -8,19 +8,19 @@ using TimeTracker.Infrastructure.Mapping;
 using TimeTracker.Service.Contract;
 using TimeTracker.Service.Features.TaskFeatures.Commands;
 using TimeTracker.Service.Tests.Common;
-using static TimeTracker.Service.Features.TaskFeatures.Commands.CreateTaskCommand;
+using static TimeTracker.Service.Features.TaskFeatures.Commands.UpdateTaskCommand;
 
 namespace TimeTracker.Service.Tests.Features.TaskFeature.Commands
 {
     [TestFixture]
-    public class CreateTaskCommandTests
+    public class UpdateTaskCommandTests
     {
         private readonly IMapper _mapper;
         private readonly TaskDto _taskDto;
         private ITaskService _mockService;
-        private CreateTaskCommandHandler _handler;
+        private UpdateTaskCommandHandler _handler;
 
-        public CreateTaskCommandTests()
+        public UpdateTaskCommandTests()
         {
             var mapperConfig = new MapperConfiguration(c =>
             {
@@ -31,19 +31,19 @@ namespace TimeTracker.Service.Tests.Features.TaskFeature.Commands
             _taskDto = new TaskDto
             {
                 TaskId = System.Guid.NewGuid(),
-                Description = "New Task"
+                Description = "updated task"
             };
         }
 
         [Test]
-        public async Task Handle_GivenAnInvalidTask_ShouldNotAddTask()
+        public async Task Handle_GivenAnInvalidTask_ShouldNotUpdateTask()
         {
             //---------------Set up test pack-------------------  
             _mockService = GetMockService();
             _handler = CreateTaskCommandHandler();
             //---------------Assert Precondition----------------
             //---------------Execute Test ----------------------           
-            var result = await _handler.Handle(new CreateTaskCommand()
+            var result = await _handler.Handle(new UpdateTaskCommand()
             , cancellationToken: System.Threading.CancellationToken.None);
             //---------------Test Result -----------------------
             result.Succeeded.ShouldBeFalse();
@@ -57,38 +57,10 @@ namespace TimeTracker.Service.Tests.Features.TaskFeature.Commands
             _handler = CreateTaskCommandHandler();
             //---------------Assert Precondition----------------
             //---------------Execute Test ----------------------           
-            var result = await _handler.Handle(new CreateTaskCommand()
+            var result = await _handler.Handle(new UpdateTaskCommand()
             , cancellationToken: System.Threading.CancellationToken.None);
             //---------------Test Result -----------------------
             Assert.AreEqual("Invalid object", result.Message);
-        }
-
-        [Test]
-        public async Task Handle_GivenAnValidTask_ShouldAddTask()
-        {
-            //---------------Set up test pack-------------------  
-            _mockService = GetMockService(1);
-            _handler = CreateTaskCommandHandler();
-            //---------------Assert Precondition----------------
-            //---------------Execute Test ----------------------           
-            await Handle();
-            var tasks = await _mockService.GetTasksAsync();
-            //---------------Test Result -----------------------
-            tasks.Data.Count.ShouldBe(1);
-        }
-
-        [Test]
-        public async Task Handle_GivenAnValidTask_ShouldAddTaskCountShouldBeZero()
-        {
-            //---------------Set up test pack-------------------  
-            _mockService = GetMockService(0);
-            _handler = CreateTaskCommandHandler();
-            //---------------Assert Precondition----------------
-            //---------------Execute Test ----------------------           
-            await Handle();
-            var tasks = await _mockService.GetTasksAsync();
-            //---------------Test Result -----------------------
-            tasks.Data.Count.ShouldBe(0);
         }
 
         [Test]
@@ -101,12 +73,12 @@ namespace TimeTracker.Service.Tests.Features.TaskFeature.Commands
             //---------------Execute Test ----------------------           
             await Handle();            
             //---------------Test Result -----------------------
-            _ = _mockService.Received(1).AddTaskAsync(Arg.Any<Domain.Entities.Task>());
+            _ = _mockService.Received(1).UpdateTaskAsync(Arg.Any<Domain.Entities.Task>());
         }
 
         private async Task Handle()
         {
-            await _handler.Handle(new CreateTaskCommand()
+            await _handler.Handle(new UpdateTaskCommand()
             { TaskDto = _taskDto }, cancellationToken: System.Threading.CancellationToken.None);
         }
 
@@ -115,9 +87,9 @@ namespace TimeTracker.Service.Tests.Features.TaskFeature.Commands
             return MockServices.GetMockService(taskCount);
         }
 
-        private CreateTaskCommandHandler CreateTaskCommandHandler()
+        private UpdateTaskCommandHandler CreateTaskCommandHandler()
         {
-            return new CreateTaskCommandHandler(_mockService, _mapper);
+            return new UpdateTaskCommandHandler(_mockService, _mapper);
         }
     }
 }
