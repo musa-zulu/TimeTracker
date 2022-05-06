@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using PeanutButter.TestUtils.Generic;
 using System;
+using System.Collections.Generic;
 using TimeTracker.Domain.Entities;
 
 namespace TimeTracker.Domain.Tests.Entities
@@ -20,10 +21,10 @@ namespace TimeTracker.Domain.Tests.Entities
 
         [TestCase("TaskId", typeof(Guid))]
         [TestCase("Description", typeof(string))]
-        [TestCase("TotalHoursSpent", typeof(double))]
-        [TestCase("DayOfTheWeek", typeof(string))]
-        [TestCase("Billable", typeof(bool))]
-        //[TestCase("TimeSlots", typeof(List<TimeSlot>))]
+        //[TestCase("TotalHoursSpent", typeof(double))]
+        //[TestCase("DayOfTheWeek", typeof(string))]
+        //[TestCase("Billable", typeof(bool))]
+        [TestCase("TimeSlots", typeof(List<TimeSlot>))]
         [TestCase("DateCreated", typeof(DateTime))]
         [TestCase("DateUpdated", typeof(DateTime))]
         [TestCase("AddedBy", typeof(string))]

@@ -1,14 +1,9 @@
-﻿using AutoMapper;
-using NSubstitute;
+﻿using NSubstitute;
 using NUnit.Framework;
-using Shouldly;
 using System.Threading.Tasks;
-using TimeTracker.Domain.Dtos;
-using TimeTracker.Infrastructure.Mapping;
 using TimeTracker.Service.Contract;
 using TimeTracker.Service.Features.TaskFeatures.Commands;
 using TimeTracker.Service.Tests.Common;
-using static TimeTracker.Service.Features.TaskFeatures.Commands.CreateTaskCommand;
 using static TimeTracker.Service.Features.TaskFeatures.Commands.DeleteTaskByIdCommand;
 
 namespace TimeTracker.Service.Tests.Features.TaskFeature.Commands

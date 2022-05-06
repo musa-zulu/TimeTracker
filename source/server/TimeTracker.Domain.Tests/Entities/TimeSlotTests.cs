@@ -20,11 +20,11 @@ namespace TimeTracker.Domain.Tests.Entities
 
         [TestCase("TimeSlotId", typeof(Guid))]
         [TestCase("TaskId", typeof(Guid))]
-        [TestCase("UserId", typeof(Guid))]
-        [TestCase("TaskDescription", typeof(string))]
+        [TestCase("UserId", typeof(Guid))]        
         [TestCase("WeekNumber", typeof(int))]
         [TestCase("Date", typeof(DateTime))]
         [TestCase("DayDescription", typeof(string))]
+        [TestCase("Billable", typeof(bool))]
         [TestCase("HoursCaptured", typeof(double))]
         [TestCase("Task", typeof(Task))]
         [TestCase("DateCreated", typeof(DateTime))]

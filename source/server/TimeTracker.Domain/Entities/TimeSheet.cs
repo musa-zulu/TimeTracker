@@ -9,6 +9,6 @@ namespace TimeTracker.Domain.Entities
         public Guid UserId { get; set; }
         public bool Submitted { get; set; }
         public double Total { get; set; }
-        public virtual List<Task> Tasks { get; set; }
+        public virtual List<TimeSlot> TimeSlots { get; set; }
     }
 }
