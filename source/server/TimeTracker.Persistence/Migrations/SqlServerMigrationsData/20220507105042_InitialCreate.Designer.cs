@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TimeTracker.Persistence;
 
-namespace TimeTracker.Persistence.Migrations
+namespace TimeTracker.Persistence.Migrations.SqlServerMigrationsData
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210924085041_UpdateTableTask")]
-    partial class UpdateTableTask
+    [Migration("20220507105042_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,29 +30,14 @@ namespace TimeTracker.Persistence.Migrations
                     b.Property<string>("AddedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Billable")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateUpdated")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DayOfTheWeek")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("HoursSpent")
-                        .HasColumnType("float");
-
-                    b.Property<double>("TotalHoursSpent")
-                        .HasColumnType("float");
 
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -71,6 +56,9 @@ namespace TimeTracker.Persistence.Migrations
                     b.Property<string>("AddedBy")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("Billable")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
@@ -86,11 +74,11 @@ namespace TimeTracker.Persistence.Migrations
                     b.Property<double>("HoursCaptured")
                         .HasColumnType("float");
 
-                    b.Property<string>("TaskDescription")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<Guid>("TaskId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<double>("TotalHoursSpentPerWeek")
+                        .HasColumnType("float");
 
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");

@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace TimeTracker.Persistence.Migrations
+namespace TimeTracker.Persistence.Migrations.SqlServerMigrationsData
 {
-    public partial class InitialMigration : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,11 +13,6 @@ namespace TimeTracker.Persistence.Migrations
                 {
                     TaskId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    HoursSpent = table.Column<double>(type: "float", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Billable = table.Column<bool>(type: "bit", nullable: false),
-                    TotalHoursSpent = table.Column<double>(type: "float", nullable: false),
-                    DayOfTheWeek = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AddedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -35,11 +30,12 @@ namespace TimeTracker.Persistence.Migrations
                     TimeSlotId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     TaskId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TaskDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     WeekNumber = table.Column<int>(type: "int", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DayDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     HoursCaptured = table.Column<double>(type: "float", nullable: false),
+                    Billable = table.Column<bool>(type: "bit", nullable: false),
+                    TotalHoursSpentPerWeek = table.Column<double>(type: "float", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AddedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),

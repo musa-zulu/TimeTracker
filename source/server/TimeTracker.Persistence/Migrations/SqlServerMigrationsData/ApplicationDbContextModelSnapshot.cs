@@ -3,17 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TimeTracker.Persistence;
 
-namespace TimeTracker.Persistence.Migrations
+namespace TimeTracker.Persistence.Migrations.SqlServerMigrationsData
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210923133505_InitialMigration")]
-    partial class InitialMigration
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,29 +28,14 @@ namespace TimeTracker.Persistence.Migrations
                     b.Property<string>("AddedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Billable")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateUpdated")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DayOfTheWeek")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("HoursSpent")
-                        .HasColumnType("float");
-
-                    b.Property<double>("TotalHoursSpent")
-                        .HasColumnType("float");
 
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -71,6 +54,9 @@ namespace TimeTracker.Persistence.Migrations
                     b.Property<string>("AddedBy")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("Billable")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
@@ -86,11 +72,11 @@ namespace TimeTracker.Persistence.Migrations
                     b.Property<double>("HoursCaptured")
                         .HasColumnType("float");
 
-                    b.Property<string>("TaskDescription")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<Guid>("TaskId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<double>("TotalHoursSpentPerWeek")
+                        .HasColumnType("float");
 
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -111,12 +97,17 @@ namespace TimeTracker.Persistence.Migrations
             modelBuilder.Entity("TimeTracker.Domain.Entities.TimeSlot", b =>
                 {
                     b.HasOne("TimeTracker.Domain.Entities.Task", "Task")
-                        .WithMany()
+                        .WithMany("TimeSlots")
                         .HasForeignKey("TaskId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Task");
+                });
+
+            modelBuilder.Entity("TimeTracker.Domain.Entities.Task", b =>
+                {
+                    b.Navigation("TimeSlots");
                 });
 #pragma warning restore 612, 618
         }

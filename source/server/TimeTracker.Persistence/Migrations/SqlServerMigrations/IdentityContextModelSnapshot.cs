@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TimeTracker.Persistence;
 
-namespace TimeTracker.Persistence.Migrations.Identity
+namespace TimeTracker.Persistence.Migrations.SqlServerMigrations
 {
     [DbContext(typeof(IdentityContext))]
     partial class IdentityContextModelSnapshot : ModelSnapshot
@@ -49,29 +49,29 @@ namespace TimeTracker.Persistence.Migrations.Identity
                     b.HasData(
                         new
                         {
-                            Id = "24d9938d-ab71-4ff6-b692-ca37bd2be051",
-                            ConcurrencyStamp = "5c93796d-dbeb-4891-8b90-20a31ee4fec1",
+                            Id = "44d168e2-28be-48b5-81c7-129eee27be91",
+                            ConcurrencyStamp = "a684e7b5-d848-4bac-a369-fe4acfe06617",
                             Name = "SuperAdmin",
                             NormalizedName = "SuperAdmin"
                         },
                         new
                         {
-                            Id = "b42c509b-ca89-417d-8f35-55f85a0479d0",
-                            ConcurrencyStamp = "b6a80750-aff8-483a-8232-efa81d1557ac",
+                            Id = "0ee418fe-8042-4c37-9b5b-43275509786a",
+                            ConcurrencyStamp = "ed650cab-d183-48d9-8f9f-d88b206c4978",
                             Name = "Admin",
                             NormalizedName = "Admin"
                         },
                         new
                         {
-                            Id = "938f512d-d661-442d-bc39-77131cbabcb2",
-                            ConcurrencyStamp = "ba94b08d-b52e-49f6-8ccc-ef3bfda8839d",
+                            Id = "0cab9d0a-752b-4278-9916-7984343bc8ff",
+                            ConcurrencyStamp = "87970deb-a903-48f5-86d5-cb8e41420ec6",
                             Name = "Moderator",
                             NormalizedName = "Moderator"
                         },
                         new
                         {
-                            Id = "647a717b-de0a-414c-b3ff-76f626d478f3",
-                            ConcurrencyStamp = "014f416a-b1c3-4009-b5e7-a696e4dcc1bb",
+                            Id = "c41a0068-c692-42f7-96da-304cb928ea21",
+                            ConcurrencyStamp = "8294cd00-66e5-4b60-8604-9715c9cc73d0",
                             Name = "Basic",
                             NormalizedName = "Basic"
                         });
@@ -164,28 +164,28 @@ namespace TimeTracker.Persistence.Migrations.Identity
                     b.HasData(
                         new
                         {
-                            UserId = "7f41d651-3934-4ac2-b7f7-87d745b33b42",
-                            RoleId = "647a717b-de0a-414c-b3ff-76f626d478f3"
+                            UserId = "ae2924a6-46d0-4413-8a73-ba37383d5337",
+                            RoleId = "c41a0068-c692-42f7-96da-304cb928ea21"
                         },
                         new
                         {
-                            UserId = "6b41ce73-48d0-4db6-9598-fe9e2da0b2a3",
-                            RoleId = "24d9938d-ab71-4ff6-b692-ca37bd2be051"
+                            UserId = "b69d7597-9259-4c8a-b64b-91f14330531e",
+                            RoleId = "44d168e2-28be-48b5-81c7-129eee27be91"
                         },
                         new
                         {
-                            UserId = "6b41ce73-48d0-4db6-9598-fe9e2da0b2a3",
-                            RoleId = "b42c509b-ca89-417d-8f35-55f85a0479d0"
+                            UserId = "b69d7597-9259-4c8a-b64b-91f14330531e",
+                            RoleId = "0ee418fe-8042-4c37-9b5b-43275509786a"
                         },
                         new
                         {
-                            UserId = "6b41ce73-48d0-4db6-9598-fe9e2da0b2a3",
-                            RoleId = "938f512d-d661-442d-bc39-77131cbabcb2"
+                            UserId = "b69d7597-9259-4c8a-b64b-91f14330531e",
+                            RoleId = "0cab9d0a-752b-4278-9916-7984343bc8ff"
                         },
                         new
                         {
-                            UserId = "6b41ce73-48d0-4db6-9598-fe9e2da0b2a3",
-                            RoleId = "647a717b-de0a-414c-b3ff-76f626d478f3"
+                            UserId = "b69d7597-9259-4c8a-b64b-91f14330531e",
+                            RoleId = "c41a0068-c692-42f7-96da-304cb928ea21"
                         });
                 });
 
@@ -281,9 +281,9 @@ namespace TimeTracker.Persistence.Migrations.Identity
                     b.HasData(
                         new
                         {
-                            Id = "6b41ce73-48d0-4db6-9598-fe9e2da0b2a3",
+                            Id = "b69d7597-9259-4c8a-b64b-91f14330531e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0ddb56e1-ec13-4d50-84e1-71b19017a6b9",
+                            ConcurrencyStamp = "8ecfcac0-0ce4-4c6a-bc89-f96f3d6061e6",
                             Email = "superadmin@gmail.com",
                             EmailConfirmed = true,
                             FirstName = "Amit",
@@ -293,15 +293,15 @@ namespace TimeTracker.Persistence.Migrations.Identity
                             NormalizedUserName = "SUPERADMIN",
                             PasswordHash = "AQAAAAEAACcQAAAAEBLjouNqaeiVWbN0TbXUS3+ChW3d7aQIk/BQEkWBxlrdRRngp14b0BIH0Rp65qD6mA==",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "88197ac2-4fbc-4ffa-b101-b0b4a6f74505",
+                            SecurityStamp = "cf33ec72-08de-4182-a363-6c7d6a6b59f7",
                             TwoFactorEnabled = false,
                             UserName = "superadmin"
                         },
                         new
                         {
-                            Id = "7f41d651-3934-4ac2-b7f7-87d745b33b42",
+                            Id = "ae2924a6-46d0-4413-8a73-ba37383d5337",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "588adfa9-04e5-4fe3-b15b-bbed915aae3c",
+                            ConcurrencyStamp = "08a3b65b-66b5-4124-b68b-5d3eb0475df2",
                             Email = "basicuser@gmail.com",
                             EmailConfirmed = true,
                             FirstName = "Basic",
@@ -311,7 +311,7 @@ namespace TimeTracker.Persistence.Migrations.Identity
                             NormalizedUserName = "BASICUSER",
                             PasswordHash = "AQAAAAEAACcQAAAAEBLjouNqaeiVWbN0TbXUS3+ChW3d7aQIk/BQEkWBxlrdRRngp14b0BIH0Rp65qD6mA==",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "0b3136be-cbfc-4fe4-a816-250f9551cf46",
+                            SecurityStamp = "ff06ddc1-f74e-4ecf-a3f7-d0586d471dfa",
                             TwoFactorEnabled = false,
                             UserName = "basicuser"
                         });
