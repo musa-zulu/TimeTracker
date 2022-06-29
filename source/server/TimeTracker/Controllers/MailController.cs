@@ -10,15 +10,15 @@ namespace TimeTracker.Controllers
     [ApiVersion("1.0")]
     public class MailController : ControllerBase
     {
-        private readonly IEmailService mailService;
+        private readonly IEmailService _mailService;
         public MailController(IEmailService mailService)
         {
-            this.mailService = mailService;
+            this._mailService = mailService;
         }
         [HttpPost("send")]
         public async Task<IActionResult> SendMail([FromForm] MailRequest request)
         {
-            await mailService.SendEmailAsync(request);
+            await _mailService.SendEmailAsync(request);
             return Ok();
         }
 
