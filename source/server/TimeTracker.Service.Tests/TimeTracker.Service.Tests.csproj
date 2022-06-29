@@ -16,12 +16,14 @@
     <PackageReference Include="NUnit" Version="3.13.2" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
     <PackageReference Include="coverlet.collector" Version="3.1.0" />
+    <PackageReference Include="Respawn" Version="3.3.0" />
     <PackageReference Include="Shouldly" Version="4.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\TimeTracker.Infrastructure\TimeTracker.Infrastructure.csproj" />
     <ProjectReference Include="..\TimeTracker.Service\TimeTracker.Service.csproj" />
+    <ProjectReference Include="..\TimeTracker\TimeTracker.csproj" />
   </ItemGroup>
 
 </Project>
