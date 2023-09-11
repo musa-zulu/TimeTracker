@@ -32,3 +32,6 @@ source/server/.vs/TimeTracker/project-colors.json
 source/server/.vs/TimeTracker/v17/.futdcache.v1
 source/server/.vs/TimeTracker/v17/.suo
 source/server/.vs/TimeTracker/v17/HierarchyCache.v1.txt
+source/server/.vs/TimeTracker/v17/.futdcache.v2
+*.vsidx
+*.bin
