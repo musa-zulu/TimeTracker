@@ -39,9 +39,13 @@ namespace TimeTracker.Persistence
         public async Task<int> SaveChangesAsync(string userName = null)
         {
             userName ??= "SYS";
-            var addedAuditedEntities = ChangeTracker.Entries<BaseEntity>().Where(p => p.State == EntityState.Added)
+            var addedAuditedEntities = ChangeTracker
+                .Entries<BaseEntity>()
+                .Where(p => p.State == EntityState.Added)
                 .Select(p => p.Entity);
-            var modifiedAuditedEntities = ChangeTracker.Entries<BaseEntity>().Where(p => p.State == EntityState.Modified)
+            var modifiedAuditedEntities = ChangeTracker
+                .Entries<BaseEntity>()
+                .Where(p => p.State == EntityState.Modified)
                 .Select(p => p.Entity);
             var now = DateTime.UtcNow;
             foreach (var added in addedAuditedEntities)
@@ -63,6 +67,5 @@ namespace TimeTracker.Persistence
             }
             return await base.SaveChangesAsync();
         }
-
     }
 }

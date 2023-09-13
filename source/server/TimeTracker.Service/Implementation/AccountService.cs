@@ -48,11 +48,7 @@ namespace TimeTracker.Service.Implementation
 
         public async Task<Response<AuthenticationResponse>> AuthenticateAsync(AuthenticationRequest request, string ipAddress)
         {
-            var user = await _userManager.FindByEmailAsync(request.Email);
-            if (user == null)
-            {
-                throw new ApiException($"No Accounts Registered with {request.Email}.");
-            }
+            var user = await _userManager.FindByEmailAsync(request.Email) ?? throw new ApiException($"No Accounts Registered with {request.Email}.");
             var result = await _signInManager.PasswordSignInAsync(user.UserName, request.Password, false, lockoutOnFailure: false);
             if (!result.Succeeded)
             {
@@ -114,7 +110,7 @@ namespace TimeTracker.Service.Implementation
             }
             else
             {
-                throw new ApiException($"Email {request.Email } is already registered.");
+                throw new ApiException($"Email {request.Email} is already registered.");
             }
         }
 
@@ -223,8 +219,7 @@ namespace TimeTracker.Service.Implementation
 
         public async Task<Response<string>> ResetPassword(ResetPasswordRequest model)
         {
-            var account = await _userManager.FindByEmailAsync(model.Email);
-            if (account == null) throw new ApiException($"No Accounts Registered with {model.Email}.");
+            var account = await _userManager.FindByEmailAsync(model.Email) ?? throw new ApiException($"No Accounts Registered with {model.Email}.");
             var result = await _userManager.ResetPasswordAsync(account, model.Token, model.Password);
             if (result.Succeeded)
             {

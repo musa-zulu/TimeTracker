@@ -24,8 +24,6 @@ namespace TimeTracker.Infrastructure.Extension
             serviceCollection.AddDbContext<ApplicationDbContext>(options =>
                    options.UseSqlServer(configuration.GetConnectionString("TimeTrackerConn") ?? configRoot["ConnectionStrings:TimeTrackerConn"]
                 , b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
-
-
         }
 
         public static void AddAutoMapper(this IServiceCollection serviceCollection)
@@ -97,9 +95,7 @@ namespace TimeTracker.Infrastructure.Extension
                 var xmlCommentsFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentsFile);
                 setupAction.IncludeXmlComments(xmlCommentsFullPath);
-
             });
-
         }
 
         public static void AddMailSetting(this IServiceCollection serviceCollection,
