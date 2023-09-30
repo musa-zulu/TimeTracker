@@ -34,7 +34,7 @@ namespace TimeTracker.Persistence
         }
 
         public DbSet<Task> Tasks { get; set; }
-        public DbSet<TimeSlot> TimeSlots { get; set; }
+        public DbSet<TimeEntry> TimeEntries { get; set; }
 
         public async Task<int> SaveChangesAsync(string userName = null)
         {

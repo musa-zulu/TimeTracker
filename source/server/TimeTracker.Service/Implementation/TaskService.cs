@@ -14,7 +14,7 @@ namespace TimeTracker.Service.Implementation
         private readonly IApplicationDbContext _applicationDbContext;
 
         public TaskService(IApplicationDbContext applicationDbContext)
-        {            
+        {
             _applicationDbContext = applicationDbContext ?? throw new ArgumentNullException(nameof(applicationDbContext));
         }
 
@@ -46,11 +46,11 @@ namespace TimeTracker.Service.Implementation
                 var task = await GetTaskById(taskId);
                 if (task == null) throw new ArgumentNullException(nameof(task));
 
-                if (task.Data?.TimeSlots != null)
+                if (task.Data?.TimeEntries != null)
                     DeleteTaskDetailsFrom(task.Data);
-                
+
                 _applicationDbContext.Tasks.Remove(task.Data);
-                
+
                 return new Response<bool>
                 {
                     Succeeded = await _applicationDbContext.SaveChangesAsync() > 0,
@@ -69,11 +69,11 @@ namespace TimeTracker.Service.Implementation
 
         private void DeleteTaskDetailsFrom(Task task)
         {
-            var timeSlots = task?.TimeSlots;
-            if (timeSlots != null && timeSlots.Count > 0)
+            var timeEntries = task?.TimeEntries;
+            if (timeEntries != null && timeEntries.Count > 0)
             {
-                foreach (var timeSlot in timeSlots)
-                    _applicationDbContext.TimeSlots.Remove(timeSlot);
+                foreach (var timeEntry in timeEntries)
+                    _applicationDbContext.TimeEntries.Remove(timeEntry);
             }
         }
 

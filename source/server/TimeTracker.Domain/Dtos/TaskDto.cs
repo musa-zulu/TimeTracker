@@ -16,6 +16,6 @@ namespace TimeTracker.Domain.Dtos
         public double TotalHoursSpent { get; set; }
         public string DayOfTheWeek { get; set; }
         [SwaggerIgnore]
-        public List<TimeSlotDto> TimeSlots { get; set; }
+        public List<TimeEntryDto> TimeEntries { get; set; }
     }
 }

@@ -16,7 +16,7 @@ namespace TimeTracker.Domain.Tests.Dtos
         [TestCase("Billable", typeof(bool))]
         [TestCase("TotalHoursSpent", typeof(double))]
         [TestCase("DayOfTheWeek", typeof(string))]
-        [TestCase("TimeSlots", typeof(List<TimeSlotDto>))]
+        [TestCase("TimeEntries", typeof(List<TimeEntryDto>))]
         public void TaskDto_ShouldHaveProperty(string propertyName, Type propertyType)
         {
             //---------------Set up test pack-------------------

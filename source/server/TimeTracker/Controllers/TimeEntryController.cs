@@ -3,15 +3,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Threading.Tasks;
-using TimeTracker.Service.Features.TimeSlotFeatures.Commands;
-using TimeTracker.Service.Features.TimeSlotFeatures.Queries;
+using TimeTracker.Service.Features.TimeEntryFeatures.Commands;
+using TimeTracker.Service.Features.TimeEntryFeatures.Queries;
 
 namespace TimeTracker.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     [ApiVersion("1.0")]
-    public class TimeSlotsController : ControllerBase
+    public class TimeEntryController : ControllerBase
     {
         private IMediator _mediator;
         public IMediator Mediator
@@ -26,7 +26,7 @@ namespace TimeTracker.Controllers
 
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> Create(CreateTimeSlotCommand command)
+        public async Task<IActionResult> Create(CreateTimeEntryCommand command)
         {
             return Ok(await Mediator.Send(command));
         }
@@ -35,7 +35,7 @@ namespace TimeTracker.Controllers
         [Route("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await Mediator.Send(new GetAllTimeSlotsQuery()));
+            return Ok(await Mediator.Send(new GetAllTimeEntriesQuery()));
         }
     }
 }

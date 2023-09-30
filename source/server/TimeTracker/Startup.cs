@@ -1,4 +1,3 @@
-using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
@@ -96,7 +95,7 @@ namespace TimeTracker
             app.UseHealthChecks("/healthz", new HealthCheckOptions
             {
                 Predicate = _ => true,
-                ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
+                // ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
                 ResultStatusCodes =
                 {
                     [HealthStatus.Healthy] = StatusCodes.Status200OK,
@@ -117,7 +116,7 @@ namespace TimeTracker
                 endpoints.MapControllers();
             });
         }
-        
+
         private void RunMigrations(IServiceProvider service)
         {
             // This returns the context.

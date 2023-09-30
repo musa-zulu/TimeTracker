@@ -23,7 +23,7 @@ namespace TimeTracker.Domain.Tests.Entities
         [TestCase("UserId", typeof(Guid))]
         [TestCase("Submitted", typeof(bool))]
         [TestCase("Total", typeof(double))]
-        [TestCase("TimeSlots", typeof(List<TimeSlot>))]
+        [TestCase("TimeEntries", typeof(List<TimeEntry>))]
         [TestCase("DateCreated", typeof(DateTime))]
         [TestCase("DateUpdated", typeof(DateTime))]
         [TestCase("AddedBy", typeof(string))]

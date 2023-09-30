@@ -9,32 +9,32 @@ using TimeTracker.Service.Contract;
 
 namespace TimeTracker.Service.Implementation
 {
-    public class TimeSlotsService : ITimeSlotsService
+    public class TimeEntryService : ITimeEntryService
     {
         private readonly IApplicationDbContext _applicationDbContext;
-        public TimeSlotsService(IApplicationDbContext applicationDbContext)
+        public TimeEntryService(IApplicationDbContext applicationDbContext)
         {
             _applicationDbContext = applicationDbContext ?? throw new ArgumentNullException(nameof(applicationDbContext));
         }
 
-        public async Task<Response<List<TimeSlot>>> GetTimeSlotsAsync()
+        public async Task<Response<List<TimeEntry>>> GetTimeEntriesAsync()
         {
             try
             {
-                var timeSlots = await _applicationDbContext
-                    .TimeSlots
+                var timeEntries = await _applicationDbContext
+                    .TimeEntries
                     .ToListAsync();
 
-                return new Response<List<TimeSlot>>
+                return new Response<List<TimeEntry>>
                 {
                     Succeeded = true,
-                    Data = timeSlots,
+                    Data = timeEntries,
                     Message = "Data successfully retrieved!!!"
                 };
             }
             catch (Exception e)
             {
-                return new Response<List<TimeSlot>>
+                return new Response<List<TimeEntry>>
                 {
                     Data = null,
                     Message = e.Message
@@ -42,15 +42,15 @@ namespace TimeTracker.Service.Implementation
             }
         }
 
-        public async Task<Response<bool>> AddTimeSlotAsync(TimeSlot newTimeSlot)
+        public async Task<Response<bool>> AddTimeEntryAsync(TimeEntry newtimeEntry)
         {
             try
             {
-                await _applicationDbContext.TimeSlots.AddAsync(newTimeSlot);
+                await _applicationDbContext.TimeEntries.AddAsync(newtimeEntry);
                 return new Response<bool>
                 {
                     Succeeded = await _applicationDbContext.SaveChangesAsync() > 0,
-                    Message = "Timeslot has been successfully added."
+                    Message = "timeEntry has been successfully added."
                 };
             }
             catch (Exception e)
@@ -63,19 +63,19 @@ namespace TimeTracker.Service.Implementation
             }
         }
 
-        public async Task<Response<bool>> DeleteTimeSlotById(Guid timeSlotId)
+        public async Task<Response<bool>> DeleteTimeEntryById(Guid timeEntryId)
         {
             try
             {
-                var timeSlot = await GetTimeSlotById(timeSlotId);
-                if (timeSlot == null) throw new ArgumentNullException(nameof(timeSlot));
+                var timeEntry = await GetTimeEntryById(timeEntryId);
+                if (timeEntry == null) throw new ArgumentNullException(nameof(timeEntry));
 
-                _applicationDbContext.TimeSlots.Remove(timeSlot.Data);
+                _applicationDbContext.TimeEntries.Remove(timeEntry.Data);
 
                 return new Response<bool>
                 {
                     Succeeded = await _applicationDbContext.SaveChangesAsync() > 0,
-                    Message = "Timeslot deleted successfully!!!"
+                    Message = "timeEntry deleted successfully!!!"
                 };
             }
             catch (Exception e)
@@ -88,24 +88,24 @@ namespace TimeTracker.Service.Implementation
             }
         }
 
-        public async Task<Response<TimeSlot>> GetTimeSlotById(Guid timeSlotId)
+        public async Task<Response<TimeEntry>> GetTimeEntryById(Guid timeEntryId)
         {
             try
             {
-                var timeSlot = await _applicationDbContext
-                                      .TimeSlots
-                                      .FirstOrDefaultAsync(x => x.TimeSlotId == timeSlotId);
+                var timeEntry = await _applicationDbContext
+                                      .TimeEntries
+                                      .FirstOrDefaultAsync(x => x.TimeEntryId == timeEntryId);
 
-                return new Response<TimeSlot>
+                return new Response<TimeEntry>
                 {
                     Succeeded = true,
-                    Data = timeSlot,
+                    Data = timeEntry,
                     Message = "Data successfully retrieved!!!"
                 };
             }
             catch (Exception e)
             {
-                return new Response<TimeSlot>
+                return new Response<TimeEntry>
                 {
                     Data = null,
                     Message = e.Message
@@ -113,11 +113,11 @@ namespace TimeTracker.Service.Implementation
             }
         }
 
-        public async Task<Response<bool>> UpdateTimeSlotAsync(TimeSlot timeSlotToUpdate)
+        public async Task<Response<bool>> UpdateTimeEntryAsync(TimeEntry timeEntryToUpdate)
         {
             try
             {
-                _applicationDbContext.TimeSlots.Update(timeSlotToUpdate);
+                _applicationDbContext.TimeEntries.Update(timeEntryToUpdate);
 
                 return new Response<bool>
                 {

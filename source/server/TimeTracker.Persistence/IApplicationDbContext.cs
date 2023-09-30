@@ -8,7 +8,8 @@ namespace TimeTracker.Persistence
     public interface IApplicationDbContext
     {
         DbSet<Task> Tasks { get; set; }
-        DbSet<TimeSlot> TimeSlots { get; set; }
+
+        DbSet<TimeEntry> TimeEntries { get; set; }
 
         Task<int> SaveChangesAsync(string userName = null);
     }

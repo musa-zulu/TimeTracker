@@ -24,7 +24,7 @@ namespace TimeTracker.Domain.Tests.Entities
         //[TestCase("TotalHoursSpent", typeof(double))]
         //[TestCase("DayOfTheWeek", typeof(string))]
         //[TestCase("Billable", typeof(bool))]
-        [TestCase("TimeSlots", typeof(List<TimeSlot>))]
+        [TestCase("TimeEntries", typeof(List<TimeEntry>))]
         [TestCase("DateCreated", typeof(DateTime))]
         [TestCase("DateUpdated", typeof(DateTime))]
         [TestCase("AddedBy", typeof(string))]
