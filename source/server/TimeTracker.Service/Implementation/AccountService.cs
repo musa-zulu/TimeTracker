@@ -248,5 +248,3 @@ public class AccountService : IAccountService
         }
     }
 }
-
-}
