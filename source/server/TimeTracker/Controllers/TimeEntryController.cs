@@ -16,7 +16,7 @@ public class TimeEntryController : ControllerBase
     private IMediator _mediator;
     public IMediator Mediator
     {
-        get { return _mediator ??= HttpContext.RequestServices.GetService<IMediator>(); }
+        get => _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
         set
         {
             if (_mediator != null) throw new InvalidOperationException("Mediator is already set");

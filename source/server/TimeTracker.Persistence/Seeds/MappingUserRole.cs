@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using TimeTracker.Domain.Enum;
 
-namespace TimeTracker.Persistence.Seeds
+namespace TimeTracker.Persistence.Seeds;
+
+public static class MappingUserRole
 {
-    public static class MappingUserRole
+    public static List<IdentityUserRole<string>> IdentityUserRoleList()
     {
-        public static List<IdentityUserRole<string>> IdentityUserRoleList()
-        {
-            return new List<IdentityUserRole<string>>()
+        return new()
             {
                 new IdentityUserRole<string>
                 {
@@ -36,6 +36,5 @@ namespace TimeTracker.Persistence.Seeds
                     UserId = Constants.SuperAdminUser
                 }
             };
-        }
     }
 }

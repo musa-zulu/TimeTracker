@@ -4,52 +4,51 @@ using Microsoft.EntityFrameworkCore;
 using TimeTracker.Domain.Auth;
 using TimeTracker.Persistence.Seeds;
 
-namespace TimeTracker.Persistence
+namespace TimeTracker.Persistence;
+
+public class IdentityContext : IdentityDbContext<ApplicationUser>
 {
-    public class IdentityContext : IdentityDbContext<ApplicationUser>
+    public IdentityContext(DbContextOptions<IdentityContext> options) : base(options)
     {
-        public IdentityContext(DbContextOptions<IdentityContext> options) : base(options)
+    }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.HasDefaultSchema("Identity");
+        modelBuilder.Entity<ApplicationUser>(entity =>
         {
-        }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+            entity.ToTable(name: "User");
+        });
+
+        modelBuilder.Entity<IdentityRole>(entity =>
         {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.HasDefaultSchema("Identity");
-            modelBuilder.Entity<ApplicationUser>(entity =>
-            {
-                entity.ToTable(name: "User");
-            });
+            entity.ToTable(name: "Role");
+        });
+        modelBuilder.Entity<IdentityUserRole<string>>(entity =>
+        {
+            entity.ToTable("UserRoles");
+        });
 
-            modelBuilder.Entity<IdentityRole>(entity =>
-            {
-                entity.ToTable(name: "Role");
-            });
-            modelBuilder.Entity<IdentityUserRole<string>>(entity =>
-            {
-                entity.ToTable("UserRoles");
-            });
+        modelBuilder.Entity<IdentityUserClaim<string>>(entity =>
+        {
+            entity.ToTable("UserClaims");
+        });
 
-            modelBuilder.Entity<IdentityUserClaim<string>>(entity =>
-            {
-                entity.ToTable("UserClaims");
-            });
+        modelBuilder.Entity<IdentityUserLogin<string>>(entity =>
+        {
+            entity.ToTable("UserLogins");
+        });
 
-            modelBuilder.Entity<IdentityUserLogin<string>>(entity =>
-            {
-                entity.ToTable("UserLogins");
-            });
+        modelBuilder.Entity<IdentityRoleClaim<string>>(entity =>
+        {
+            entity.ToTable("RoleClaims");
+        });
 
-            modelBuilder.Entity<IdentityRoleClaim<string>>(entity =>
-            {
-                entity.ToTable("RoleClaims");
-            });
+        modelBuilder.Entity<IdentityUserToken<string>>(entity =>
+        {
+            entity.ToTable("UserTokens");
+        });
 
-            modelBuilder.Entity<IdentityUserToken<string>>(entity =>
-            {
-                entity.ToTable("UserTokens");
-            });
-
-            modelBuilder.Seed();
-        }
+        modelBuilder.Seed();
     }
 }

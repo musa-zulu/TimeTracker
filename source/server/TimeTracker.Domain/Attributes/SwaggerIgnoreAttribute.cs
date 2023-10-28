@@ -1,8 +1,7 @@
 ﻿using System;
 
-namespace TimeTracker.Domain.Attributes
+namespace TimeTracker.Domain.Attributes;
+
+public class SwaggerIgnoreAttribute : Attribute
 {
-    public class SwaggerIgnoreAttribute : Attribute
-    {
-    }
 }

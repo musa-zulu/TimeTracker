@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using TimeTracker.Domain.Enum;
 
-namespace TimeTracker.Persistence.Seeds
+namespace TimeTracker.Persistence.Seeds;
+
+public static class DefaultRoles
 {
-    public static class DefaultRoles
+    public static List<IdentityRole> IdentityRoleList()
     {
-        public static List<IdentityRole> IdentityRoleList()
-        {
-            return new List<IdentityRole>()
+        return new()
             {
                 new IdentityRole
                 {
@@ -35,6 +35,5 @@ namespace TimeTracker.Persistence.Seeds
                     NormalizedName = Roles.Basic.ToString()
                 }
             };
-        }
     }
 }

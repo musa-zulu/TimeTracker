@@ -2,15 +2,14 @@
 using TimeTracker.Domain.Dtos;
 using TimeTracker.Domain.Entities;
 
-namespace TimeTracker.Infrastructure.Mapping
+namespace TimeTracker.Infrastructure.Mapping;
+
+public class TaskProfile : Profile
 {
-    public class TaskProfile : Profile
+    public TaskProfile()
     {
-        public TaskProfile()
-        {
-            CreateMap<TaskDto, Task>()
-                 .ForMember(dest => dest.TimeEntries, opt =>
-                    opt.Ignore());
-        }
+        CreateMap<TaskDto, Task>()
+             .ForMember(dest => dest.TimeEntries, opt =>
+                opt.Ignore());
     }
 }

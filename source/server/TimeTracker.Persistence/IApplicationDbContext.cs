@@ -3,14 +3,13 @@ using System.Threading.Tasks;
 using TimeTracker.Domain.Entities;
 using Task = TimeTracker.Domain.Entities.Task;
 
-namespace TimeTracker.Persistence
+namespace TimeTracker.Persistence;
+
+public interface IApplicationDbContext
 {
-    public interface IApplicationDbContext
-    {
-        DbSet<Task> Tasks { get; set; }
+    DbSet<Task> Tasks { get; set; }
 
-        DbSet<TimeEntry> TimeEntries { get; set; }
+    DbSet<TimeEntry> TimeEntries { get; set; }
 
-        Task<int> SaveChangesAsync(string userName = null);
-    }
+    Task<int> SaveChangesAsync(string userName = null);
 }

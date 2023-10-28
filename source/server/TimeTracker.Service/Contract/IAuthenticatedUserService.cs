@@ -1,8 +1,7 @@
 ﻿
-namespace TimeTracker.Service.Contract
+namespace TimeTracker.Service.Contract;
+
+public interface IAuthenticatedUserService
 {
-    public interface IAuthenticatedUserService
-    {
-        string UserId { get; }
-    }
+    string UserId { get; }
 }

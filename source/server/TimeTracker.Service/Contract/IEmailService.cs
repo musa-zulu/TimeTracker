@@ -1,10 +1,9 @@
 ﻿using System.Threading.Tasks;
 using TimeTracker.Domain.Settings;
 
-namespace TimeTracker.Service.Contract
+namespace TimeTracker.Service.Contract;
+
+public interface IEmailService
 {
-    public interface IEmailService
-    {
-        Task SendEmailAsync(MailRequest mailRequest);
-    }
+    Task SendEmailAsync(MailRequest mailRequest);
 }

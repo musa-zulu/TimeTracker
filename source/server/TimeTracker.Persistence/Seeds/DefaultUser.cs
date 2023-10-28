@@ -2,13 +2,13 @@
 using TimeTracker.Domain.Auth;
 using TimeTracker.Domain.Enum;
 
-namespace TimeTracker.Persistence.Seeds
+namespace TimeTracker.Persistence.Seeds;
+
+public static class DefaultUser
 {
-    public static class DefaultUser
+    public static List<ApplicationUser> IdentityBasicUserList()
     {
-        public static List<ApplicationUser> IdentityBasicUserList()
-        {
-            return new List<ApplicationUser>()
+        return new()
             {
                 new ApplicationUser
                 {
@@ -39,6 +39,5 @@ namespace TimeTracker.Persistence.Seeds
                     NormalizedUserName="BASICUSER"
                 },
             };
-        }
     }
 }

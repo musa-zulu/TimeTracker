@@ -17,7 +17,7 @@ public class TaskController : ControllerBase
     private IMediator _mediator;
     public IMediator Mediator
     {
-        get { return _mediator ??= HttpContext.RequestServices.GetService<IMediator>(); }
+        get => _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
         set
         {
             if (_mediator != null) throw new InvalidOperationException("Mediator is already set");
@@ -57,11 +57,7 @@ public class TaskController : ControllerBase
     [Route("Update")]
     public async Task<IActionResult> Update(Guid taskId, UpdateTaskCommand command)
     {
-        if (taskId != command.TaskDto.TaskId)
-        {
-            return BadRequest();
-        }
-        return Ok(await Mediator.Send(command));
+        return taskId != command.TaskDto.TaskId ? BadRequest() : Ok(await Mediator.Send(command));
     }
 
 }

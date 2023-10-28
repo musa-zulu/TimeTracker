@@ -5,95 +5,94 @@ using TimeTracker.Domain.Common;
 using TimeTracker.Domain.Entities;
 using TimeTracker.Service.Contract;
 
-namespace TimeTracker.Service.Tests.Common
+namespace TimeTracker.Service.Tests.Common;
+
+public static class MockTaskService
 {
-    public static class MockTaskService
+    public static ITaskService GetTasks(int? numberOfTasks)
     {
-        public static ITaskService GetTasks(int? numberOfTasks)
+        var tasks = new List<Task>();
+        for (var task = 0; task < numberOfTasks; task++)
         {
-            var tasks = new List<Task>();
-            for (var task = 0; task < numberOfTasks; task++)
+            tasks.Add(new Task
             {
-                tasks.Add(new Task
-                {
-                    TaskId = Guid.NewGuid(),
-                    Description = "task " + task
-                });
-            }
-            var tasksResponse = new Response<List<Task>>
-            {
-                Data = tasks
-            };
-
-            var mockService = Substitute.For<ITaskService>();
-            mockService.GetTasksAsync().Returns(tasksResponse);
-            return mockService;
+                TaskId = Guid.NewGuid(),
+                Description = "task " + task
+            });
         }
-
-        public static ITaskService GetTaskById(Guid taskId)
+        var tasksResponse = new Response<List<Task>>
         {
-            var tasksResponse = new Response<Task>
-            {
-                Data = new Task
-                {
-                    TaskId = taskId
-                }
-            };
+            Data = tasks
+        };
 
-            var mockService = Substitute.For<ITaskService>();
-            mockService.GetTaskById(taskId).Returns(tasksResponse);
-            return mockService;
-        }
-
-        public static ITaskService GetMockService(int? taskCount)
-        {
-            var mockService = GetTasks(taskCount);
-            return mockService;
-        }
+        var mockService = Substitute.For<ITaskService>();
+        mockService.GetTasksAsync().Returns(tasksResponse);
+        return mockService;
     }
 
-    public static class MockTimeEntryService
+    public static ITaskService GetTaskById(Guid taskId)
     {
-        public static ITimeEntryService GetTimeEntries(int? numberOfEntries)
+        var tasksResponse = new Response<Task>
         {
-            var entries = new List<TimeEntry>();
-            for (var entry = 0; entry < numberOfEntries; entry++)
+            Data = new Task
             {
-                entries.Add(new TimeEntry
-                {
-                    TimeEntryId = Guid.NewGuid(),
-                    HoursWorked = 2.3M
-                });
+                TaskId = taskId
             }
-            var timeEntriesResponse = new Response<List<TimeEntry>>
-            {
-                Data = entries
-            };
+        };
 
-            var mockService = Substitute.For<ITimeEntryService>();
-            mockService.GetTimeEntriesAsync().Returns(timeEntriesResponse);
-            return mockService;
-        }
+        var mockService = Substitute.For<ITaskService>();
+        mockService.GetTaskById(taskId).Returns(tasksResponse);
+        return mockService;
+    }
 
-        public static ITimeEntryService GetTimeEntryById(Guid timeEntryId)
+    public static ITaskService GetMockService(int? taskCount)
+    {
+        var mockService = GetTasks(taskCount);
+        return mockService;
+    }
+}
+
+public static class MockTimeEntryService
+{
+    public static ITimeEntryService GetTimeEntries(int? numberOfEntries)
+    {
+        var entries = new List<TimeEntry>();
+        for (var entry = 0; entry < numberOfEntries; entry++)
         {
-            var timeEntriesResponse = new Response<TimeEntry>
+            entries.Add(new TimeEntry
             {
-                Data = new TimeEntry
-                {
-                    TimeEntryId = timeEntryId
-                }
-            };
-
-            var mockService = Substitute.For<ITimeEntryService>();
-            mockService.GetTimeEntryById(timeEntryId).Returns(timeEntriesResponse);
-            return mockService;
+                TimeEntryId = Guid.NewGuid(),
+                HoursWorked = 2.3M
+            });
         }
-
-        public static ITimeEntryService GetMockService(int? timeEntryCount)
+        var timeEntriesResponse = new Response<List<TimeEntry>>
         {
-            var mockService = GetTimeEntries(timeEntryCount);
-            return mockService;
-        }
+            Data = entries
+        };
+
+        var mockService = Substitute.For<ITimeEntryService>();
+        mockService.GetTimeEntriesAsync().Returns(timeEntriesResponse);
+        return mockService;
+    }
+
+    public static ITimeEntryService GetTimeEntryById(Guid timeEntryId)
+    {
+        var timeEntriesResponse = new Response<TimeEntry>
+        {
+            Data = new TimeEntry
+            {
+                TimeEntryId = timeEntryId
+            }
+        };
+
+        var mockService = Substitute.For<ITimeEntryService>();
+        mockService.GetTimeEntryById(timeEntryId).Returns(timeEntriesResponse);
+        return mockService;
+    }
+
+    public static ITimeEntryService GetMockService(int? timeEntryCount)
+    {
+        var mockService = GetTimeEntries(timeEntryCount);
+        return mockService;
     }
 }

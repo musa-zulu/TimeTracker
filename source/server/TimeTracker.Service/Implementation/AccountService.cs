@@ -62,7 +62,7 @@ public class AccountService : IAccountService
         }
 
         JwtSecurityToken jwtSecurityToken = await GenerateJWToken(user);
-        AuthenticationResponse response = new AuthenticationResponse
+        AuthenticationResponse response = new()
         {
             Id = user.Id,
             JWToken = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
@@ -192,14 +192,9 @@ public class AccountService : IAccountService
         code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
         var result = await _userManager.ConfirmEmailAsync(user, code);
 
-        if (result.Succeeded)
-        {
-            return new Response<string>(user.Id, message: $"Account Confirmed for {user.Email}. You can now use the /api/Account/authenticate endpoint.");
-        }
-        else
-        {
-            throw new ApiException($"An error occured while confirming {user.Email}.");
-        }
+        return result.Succeeded
+            ? new Response<string>(user.Id, message: $"Account Confirmed for {user.Email}. You can now use the /api/Account/authenticate endpoint.")
+            : throw new ApiException($"An error occured while confirming {user.Email}.");
     }
 
     private RefreshToken GenerateRefreshToken(string ipAddress)
@@ -238,13 +233,8 @@ public class AccountService : IAccountService
         var account = await _userManager.FindByEmailAsync(model.Email) ?? throw new ApiException($"No Accounts Registered with {model.Email}.");
         var result = await _userManager.ResetPasswordAsync(account, model.Token, model.Password);
 
-        if (result.Succeeded)
-        {
-            return new Response<string>(model.Email, message: $"Password Resetted.");
-        }
-        else
-        {
-            throw new ApiException($"Error occured while reseting the password.");
-        }
+        return result.Succeeded
+            ? new Response<string>(model.Email, message: $"Password Resetted.")
+            : throw new ApiException($"Error occured while reseting the password.");
     }
 }

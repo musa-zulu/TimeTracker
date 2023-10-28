@@ -1,8 +1,7 @@
 ﻿
-namespace TimeTracker.Domain.Enum
+namespace TimeTracker.Domain.Enum;
+
+public enum FeatureManagement
 {
-    public enum FeatureManagement
-    {
-        EnableEmailService
-    }
+    EnableEmailService
 }

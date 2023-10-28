@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
 
-namespace TimeTracker.Domain.Entities
+namespace TimeTracker.Domain.Entities;
+
+public class Task : BaseEntity
 {
-    public class Task : BaseEntity
-    {
-        public Guid TaskId { get; set; }
-        public string Description { get; set; }
-        public virtual List<TimeEntry> TimeEntries { get; set; }
-    }
+    public Guid TaskId { get; set; }
+    public string Description { get; set; }
+    public virtual List<TimeEntry> TimeEntries { get; set; }
 }

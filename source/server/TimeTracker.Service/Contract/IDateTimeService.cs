@@ -1,9 +1,8 @@
 ﻿using System;
 
-namespace TimeTracker.Service.Contract
+namespace TimeTracker.Service.Contract;
+
+public interface IDateTimeService
 {
-    public interface IDateTimeService
-    {
-        DateTime NowUtc { get; }
-    }
+    DateTime NowUtc { get; }
 }

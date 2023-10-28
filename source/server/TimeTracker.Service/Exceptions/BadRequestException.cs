@@ -1,8 +1,6 @@
 ﻿
-namespace TimeTracker.Service.Exceptions
-{
-    public class BadRequestException
-    {
+namespace TimeTracker.Service.Exceptions;
 
-    }
+public class BadRequestException
+{
 }

@@ -2,14 +2,13 @@
 using TimeTracker.Domain.Dtos;
 using TimeTracker.Domain.Entities;
 
-namespace TimeTracker.Infrastructure.Mapping
+namespace TimeTracker.Infrastructure.Mapping;
+
+public class TimeEntryProfile : Profile
 {
-    public class TimeEntryProfile : Profile
+    public TimeEntryProfile()
     {
-        public TimeEntryProfile()
-        {
-            CreateMap<TimeEntryDto, TimeEntry>()
-                .ReverseMap();
-        }
+        CreateMap<TimeEntryDto, TimeEntry>()
+            .ReverseMap();
     }
 }

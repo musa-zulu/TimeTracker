@@ -40,14 +40,12 @@ public class AccountController : ControllerBase
     [HttpPost("reset-password")]
     public async Task<IActionResult> ResetPassword(ResetPasswordRequest model)
     {
-
         return Ok(await _accountService.ResetPassword(model));
     }
     private string GenerateIPAddress()
     {
-        if (Request.Headers.ContainsKey("X-Forwarded-For"))
-            return Request.Headers["X-Forwarded-For"];
-        else
-            return HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
+        return Request.Headers.ContainsKey("X-Forwarded-For")
+            ? (string)Request.Headers["X-Forwarded-For"]
+            : HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
     }
 }
