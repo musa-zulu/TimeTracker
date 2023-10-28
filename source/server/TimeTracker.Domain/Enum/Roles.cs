@@ -7,7 +7,8 @@ namespace TimeTracker.Domain.Enum
         SuperAdmin,
         Admin,
         Moderator,
-        Basic
+        Basic,
+        Employee
     }
 
     public static class Constants
@@ -19,5 +20,6 @@ namespace TimeTracker.Domain.Enum
 
         public static readonly string SuperAdminUser = Guid.NewGuid().ToString();
         public static readonly string BasicUser = Guid.NewGuid().ToString();
+        public static readonly string Employee = Guid.NewGuid().ToString();
     }
 }

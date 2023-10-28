@@ -42,11 +42,11 @@ namespace TimeTracker.Service.Implementation
             }
         }
 
-        public async Task<Response<bool>> AddTimeEntryAsync(TimeEntry newtimeEntry)
+        public async Task<Response<bool>> AddTimeEntryAsync(TimeEntry newTimeEntry)
         {
             try
             {
-                await _applicationDbContext.TimeEntries.AddAsync(newtimeEntry);
+                await _applicationDbContext.TimeEntries.AddAsync(newTimeEntry);
                 return new Response<bool>
                 {
                     Succeeded = await _applicationDbContext.SaveChangesAsync() > 0,
@@ -68,7 +68,7 @@ namespace TimeTracker.Service.Implementation
             try
             {
                 var timeEntry = await GetTimeEntryById(timeEntryId);
-                if (timeEntry == null) throw new ArgumentNullException(nameof(timeEntry));
+                if (timeEntry is null) throw new ArgumentNullException(nameof(timeEntry));
 
                 _applicationDbContext.TimeEntries.Remove(timeEntry.Data);
 

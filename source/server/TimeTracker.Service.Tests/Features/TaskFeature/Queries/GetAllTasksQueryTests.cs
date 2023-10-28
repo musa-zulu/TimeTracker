@@ -93,7 +93,7 @@ namespace TimeTracker.Service.Tests.Features.TaskFeature.Queries
 
         private static ITaskService GetTasks(int numberOfTasks)
         {
-            return MockServices.GetTasks(numberOfTasks);
+            return MockTaskService.GetTasks(numberOfTasks);
         }
 
     }

@@ -64,7 +64,7 @@ namespace TimeTracker.Service.Tests.Features.TaskFeature.Commands
         }
 
         [Test]
-        public async Task Handle_GivenAnValidTask_ShouldAddTask()
+        public async Task Handle_GivenAValidTask_ShouldAddTask()
         {
             //---------------Set up test pack-------------------  
             _mockService = GetMockService(1);
@@ -78,7 +78,7 @@ namespace TimeTracker.Service.Tests.Features.TaskFeature.Commands
         }
 
         [Test]
-        public async Task Handle_GivenAnValidTask_ShouldAddTaskCountShouldBeZero()
+        public async Task Handle_GivenAValidTask_ShouldHaveTaskCountOfZero()
         {
             //---------------Set up test pack-------------------  
             _mockService = GetMockService(0);
@@ -99,7 +99,7 @@ namespace TimeTracker.Service.Tests.Features.TaskFeature.Commands
             _handler = CreateTaskCommandHandler();
             //---------------Assert Precondition----------------
             //---------------Execute Test ----------------------           
-            await Handle();            
+            await Handle();
             //---------------Test Result -----------------------
             _ = _mockService.Received(1).AddTaskAsync(Arg.Any<Domain.Entities.Task>());
         }
@@ -112,7 +112,7 @@ namespace TimeTracker.Service.Tests.Features.TaskFeature.Commands
 
         private static ITaskService GetMockService(int? taskCount = 0)
         {
-            return MockServices.GetMockService(taskCount);
+            return MockTaskService.GetMockService(taskCount);
         }
 
         private CreateTaskCommandHandler CreateTaskCommandHandler()

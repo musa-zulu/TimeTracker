@@ -5,27 +5,26 @@ using System.Linq;
 using System.Reflection;
 using TimeTracker.Domain.Attributes;
 
-namespace TimeTracker.Infrastructure.Extension
+namespace TimeTracker.Infrastructure.Extension;
+
+public class SwaggerHidePropertyFilter : ISchemaFilter
 {
-    public class SwaggerHidePropertyFilter : ISchemaFilter
+    public void Apply(OpenApiSchema schema, SchemaFilterContext context)
     {
-        public void Apply(OpenApiSchema schema, SchemaFilterContext context)
+        if (schema?.Properties is null)
         {
-            if (schema?.Properties == null)
+            return;
+        }
+
+        var skipProperties = context.Type.GetProperties().Where(t => t.GetCustomAttribute<SwaggerIgnoreAttribute>() != null);
+
+        foreach (var skipProperty in skipProperties)
+        {
+            var propertyToSkip = schema.Properties.Keys.SingleOrDefault(x => string.Equals(x, skipProperty.Name, StringComparison.OrdinalIgnoreCase));
+
+            if (propertyToSkip != null)
             {
-                return;
-            }
-
-            var skipProperties = context.Type.GetProperties().Where(t => t.GetCustomAttribute<SwaggerIgnoreAttribute>() != null);
-
-            foreach (var skipProperty in skipProperties)
-            {
-                var propertyToSkip = schema.Properties.Keys.SingleOrDefault(x => string.Equals(x, skipProperty.Name, StringComparison.OrdinalIgnoreCase));
-
-                if (propertyToSkip != null)
-                {
-                    schema.Properties.Remove(propertyToSkip);
-                }
+                schema.Properties.Remove(propertyToSkip);
             }
         }
     }

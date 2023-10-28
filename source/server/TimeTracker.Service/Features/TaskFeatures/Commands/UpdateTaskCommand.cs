@@ -22,11 +22,12 @@ namespace TimeTracker.Service.Features.TaskFeatures.Commands
                 _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
                 _taskService = taskService ?? throw new ArgumentNullException(nameof(taskService));
             }
+
             public async Task<Response<bool>> Handle(UpdateTaskCommand request, CancellationToken cancellationToken)
             {
                 var task = _mapper.Map<Domain.Entities.Task>(request.TaskDto);
 
-                if (task == null)
+                if (task is null)
                 {
                     return new Response<bool>
                     {
@@ -34,6 +35,7 @@ namespace TimeTracker.Service.Features.TaskFeatures.Commands
                         Succeeded = false
                     };
                 }
+
                 return await _taskService.UpdateTaskAsync(task);
             }
         }

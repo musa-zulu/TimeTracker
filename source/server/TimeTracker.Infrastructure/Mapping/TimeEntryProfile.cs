@@ -8,7 +8,8 @@ namespace TimeTracker.Infrastructure.Mapping
     {
         public TimeEntryProfile()
         {
-            CreateMap<TimeEntryDto, TimeEntry>();
+            CreateMap<TimeEntryDto, TimeEntry>()
+                .ReverseMap();
         }
     }
 }

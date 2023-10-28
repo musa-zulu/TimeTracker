@@ -68,7 +68,7 @@ namespace TimeTracker.Service.Tests.Features.TaskFeature.Queries
 
         private static ITaskService GetTaskById(Guid taskId)
         {
-            return MockServices.GetTaskById(taskId);
+            return MockTaskService.GetTaskById(taskId);
         }
     }
 }

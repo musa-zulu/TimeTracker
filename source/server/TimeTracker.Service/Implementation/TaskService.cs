@@ -7,146 +7,144 @@ using TimeTracker.Persistence;
 using TimeTracker.Service.Contract;
 using Task = TimeTracker.Domain.Entities.Task;
 
-namespace TimeTracker.Service.Implementation
+namespace TimeTracker.Service.Implementation;
+public class TaskService : ITaskService
 {
-    public class TaskService : ITaskService
+    private readonly IApplicationDbContext _applicationDbContext;
+
+    public TaskService(IApplicationDbContext applicationDbContext)
     {
-        private readonly IApplicationDbContext _applicationDbContext;
+        _applicationDbContext = applicationDbContext ?? throw new ArgumentNullException(nameof(applicationDbContext));
+    }
 
-        public TaskService(IApplicationDbContext applicationDbContext)
+    public async Task<Response<bool>> AddTaskAsync(Task newTask)
+    {
+        try
         {
-            _applicationDbContext = applicationDbContext ?? throw new ArgumentNullException(nameof(applicationDbContext));
+            await _applicationDbContext.Tasks.AddAsync(newTask);
+            return new Response<bool>
+            {
+                Succeeded = await _applicationDbContext.SaveChangesAsync() > 0,
+                Message = "Task has been successfully added"
+            };
         }
-
-        public async Task<Response<bool>> AddTaskAsync(Task newTask)
+        catch (Exception e)
         {
-            try
+            return new Response<bool>
             {
-                await _applicationDbContext.Tasks.AddAsync(newTask);
-                return new Response<bool>
-                {
-                    Succeeded = await _applicationDbContext.SaveChangesAsync() > 0,
-                    Message = "Task has been successfully added"
-                };
-            }
-            catch (Exception e)
-            {
-                return new Response<bool>
-                {
-                    Succeeded = false,
-                    Message = e.Message
-                };
-            }
+                Succeeded = false,
+                Message = e.Message
+            };
         }
+    }
 
-        public async Task<Response<bool>> DeleteTaskById(Guid taskId)
+    public async Task<Response<bool>> DeleteTaskById(Guid taskId)
+    {
+        try
         {
-            try
+            var task = await GetTaskById(taskId);
+            if (task is null) throw new ArgumentNullException(nameof(task));
+
+            if (task.Data?.TimeEntries != null)
+                DeleteTaskDetailsFrom(task.Data);
+
+            _applicationDbContext.Tasks.Remove(task.Data);
+
+            return new Response<bool>
             {
-                var task = await GetTaskById(taskId);
-                if (task == null) throw new ArgumentNullException(nameof(task));
-
-                if (task.Data?.TimeEntries != null)
-                    DeleteTaskDetailsFrom(task.Data);
-
-                _applicationDbContext.Tasks.Remove(task.Data);
-
-                return new Response<bool>
-                {
-                    Succeeded = await _applicationDbContext.SaveChangesAsync() > 0,
-                    Message = "Object deleted successfully!!!"
-                };
-            }
-            catch (Exception e)
-            {
-                return new Response<bool>
-                {
-                    Succeeded = false,
-                    Message = e.Message
-                };
-            }
+                Succeeded = await _applicationDbContext.SaveChangesAsync() > 0,
+                Message = "Object deleted successfully!!!"
+            };
         }
-
-        private void DeleteTaskDetailsFrom(Task task)
+        catch (Exception e)
         {
-            var timeEntries = task?.TimeEntries;
-            if (timeEntries != null && timeEntries.Count > 0)
+            return new Response<bool>
             {
-                foreach (var timeEntry in timeEntries)
-                    _applicationDbContext.TimeEntries.Remove(timeEntry);
-            }
+                Succeeded = false,
+                Message = e.Message
+            };
         }
+    }
 
-        public async Task<Response<Task>> GetTaskById(Guid taskId)
+    private void DeleteTaskDetailsFrom(Task task)
+    {
+        var timeEntries = task?.TimeEntries;
+        if (timeEntries is not null && timeEntries.Count > 0)
         {
-            try
-            {
-                var task = await _applicationDbContext
-                                      .Tasks
-                                      .FirstOrDefaultAsync(x => x.TaskId == taskId);
-
-                return new Response<Task>
-                {
-                    Succeeded = true,
-                    Data = task,
-                    Message = "Data successfully retrieved!!!"
-                };
-            }
-            catch (Exception e)
-            {
-                return new Response<Task>
-                {
-                    Data = null,
-                    Message = e.Message
-                };
-            }
+            foreach (var timeEntry in timeEntries)
+                _applicationDbContext.TimeEntries.Remove(timeEntry);
         }
+    }
 
-        public async Task<Response<List<Task>>> GetTasksAsync()
+    public async Task<Response<Task>> GetTaskById(Guid taskId)
+    {
+        try
         {
-            try
-            {
-                var tasks = await _applicationDbContext
-                    .Tasks
-                    .ToListAsync();
+            var task = await _applicationDbContext
+                                  .Tasks
+                                  .FirstOrDefaultAsync(x => x.TaskId == taskId);
 
-                return new Response<List<Task>>
-                {
-                    Succeeded = true,
-                    Data = tasks,
-                    Message = "Data successfully retrieved!!!"
-                };
-            }
-            catch (Exception e)
+            return new Response<Task>
             {
-                return new Response<List<Task>>
-                {
-                    Data = null,
-                    Message = e.Message
-                };
-            }
+                Succeeded = true,
+                Data = task,
+                Message = "Data successfully retrieved!!!"
+            };
         }
-
-        public async Task<Response<bool>> UpdateTaskAsync(Task taskToUpdate)
+        catch (Exception e)
         {
-            try
+            return new Response<Task>
             {
-                var task = _applicationDbContext.Tasks.Update(taskToUpdate);
+                Data = null,
+                Message = e.Message
+            };
+        }
+    }
 
-                return new Response<bool>
-                {
-                    Succeeded = await _applicationDbContext.SaveChangesAsync() > 0,
-                    Message = "Data has been updated successfully!!"
-                };
-            }
-            catch (Exception e)
+    public async Task<Response<List<Task>>> GetTasksAsync()
+    {
+        try
+        {
+            var tasks = await _applicationDbContext
+                .Tasks
+                .ToListAsync();
+
+            return new Response<List<Task>>
             {
-                return new Response<bool>
-                {
-                    Succeeded = false,
-                    Message = e.Message
-                };
-            }
+                Succeeded = true,
+                Data = tasks,
+                Message = "Data successfully retrieved!!!"
+            };
+        }
+        catch (Exception e)
+        {
+            return new Response<List<Task>>
+            {
+                Data = null,
+                Message = e.Message
+            };
+        }
+    }
+
+    public async Task<Response<bool>> UpdateTaskAsync(Task taskToUpdate)
+    {
+        try
+        {
+            var task = _applicationDbContext.Tasks.Update(taskToUpdate);
+
+            return new Response<bool>
+            {
+                Succeeded = await _applicationDbContext.SaveChangesAsync() > 0,
+                Message = "Data has been updated successfully!!"
+            };
+        }
+        catch (Exception e)
+        {
+            return new Response<bool>
+            {
+                Succeeded = false,
+                Message = e.Message
+            };
         }
     }
 }

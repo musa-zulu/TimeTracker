@@ -35,7 +35,7 @@ namespace TimeTracker.Service.Tests.Features.TaskFeature.Commands
 
         private static ITaskService GetMockService(int? taskCount = 0)
         {
-            return MockServices.GetMockService(taskCount);
+            return MockTaskService.GetMockService(taskCount);
         }
 
         private DeleteTaskByIdHandler CreateTaskCommandHandler()

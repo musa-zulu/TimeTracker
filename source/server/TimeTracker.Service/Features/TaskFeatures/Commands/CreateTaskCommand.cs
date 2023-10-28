@@ -17,16 +17,18 @@ namespace TimeTracker.Service.Features.TaskFeatures.Commands
         {
             private readonly ITaskService _taskService;
             private readonly IMapper _mapper;
+
             public CreateTaskCommandHandler(ITaskService taskService, IMapper mapper)
             {
                 _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
                 _taskService = taskService ?? throw new ArgumentNullException(nameof(taskService));
             }
+
             public async Task<Response<bool>> Handle(CreateTaskCommand request, CancellationToken cancellationToken)
             {
                 var task = _mapper.Map<Domain.Entities.Task>(request.TaskDto);
 
-                if (task == null)
+                if (task is null)
                 {
                     return new Response<bool>
                     {
@@ -35,6 +37,7 @@ namespace TimeTracker.Service.Features.TaskFeatures.Commands
                     };
                 }
                 task.TaskId = Guid.NewGuid();
+
                 return await _taskService.AddTaskAsync(task);
             }
         }
