@@ -27,10 +27,10 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Clean
-      run: dotnet clean ./TimeTracker.sln --configuration Release && dotnet nuget locals all --clear
+      run: dotnet clean ./***/***/TimeTracker.sln --configuration Release && dotnet nuget locals all --clear
     - name: Build
-      run: dotnet build ./TimeTracker.sln --configuration Release --no-restore
+      run: dotnet build ./***/***/TimeTracker.sln --configuration Release --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - name: Publish
-      run: dotnet publish ./TimeTracker.sln --configuration Release --no-build
+      run: dotnet publish ./***/***/TimeTracker.sln --configuration Release --no-build
