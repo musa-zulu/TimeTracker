@@ -31,6 +31,6 @@ jobs:
     - name: Build
       run: dotnet build ./source/server/TimeTracker.sln --configuration Release --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test ./source/server/TimeTracker.sln --no-build --verbosity normal
     - name: Publish
       run: dotnet publish ./source/server/TimeTracker.sln --configuration Release --no-build
