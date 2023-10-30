@@ -23,11 +23,11 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
-        
-    - name: Restore dependencies
-      run: dotnet restore
+
     - name: Clean
       run: dotnet clean ./source/server/TimeTracker.sln --configuration Release && dotnet nuget locals all --clear
+    - name: Restore dependencies
+      run: dotnet restore ./source/server/TimeTracker.sln
     - name: Build
       run: dotnet build ./source/server/TimeTracker.sln --configuration Release --no-restore
     - name: Test
